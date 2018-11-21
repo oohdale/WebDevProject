@@ -1,0 +1,151 @@
+body {
+    text-align: center;
+    background: #ffffff;
+    font-family: 'Mali', cursive;
+}
+
+.aboutuspic {
+    display: block;
+    margin: 0 auto;
+}
+
+#login, #register{
+    font-size: 20px;
+    color: #8565c4;
+}
+
+#wrapper {
+    width: 900px;
+    margin: 10px auto;
+    text-align: left;
+    border: 1px solid #8565c4;
+    padding: 20px;
+    background: #ffffff;
+}
+
+div#header h1 {
+    margin-top: 0;
+    font-size: 2.5em;
+}
+
+
+ul#navbar {
+    list-style: none;
+    margin-bottom: 10px;
+    display: inline;
+    text-decoration: none;
+    font-size: 25px;
+
+}
+
+ul#navbar li {
+    display: inline-block;
+    font-weight: bold;
+}
+
+ul#navbar li a{
+    text-decoration: none;
+    float: left;
+    text-decoration: none;
+    text-align: center;
+    padding: 24px 16px;
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: #8565c4;
+}
+
+a:hover {
+    color: #DB7093;
+    font-weight: bolder;
+}
+
+ul#navbar li a:hover {
+    color: #DB7093;
+    font-weight: bolder;
+}
+
+ul#navbar li a.active {
+    background: #ffffff;
+    color: #8565c4;
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+div#welcome {
+    border: 1px solid #8565c4;
+    padding: 0 10px 10px 10px;
+    font-family: 'Mali', cursive;
+    display: inline-block
+}
+
+h1, h2 {
+    font-family: 'Mali', cursive;
+    color: #6B41B0;
+}
+
+h1 {
+    text-align: center;
+}
+
+div.productdesc {
+    font-family: 'Mali', cursive;
+}
+
+div#footer {
+    text-align: center;
+    margin-top: 10px;
+    color: #6B41B0;
+    font-family: 'Mali', cursive;
+}
+
+label {
+    display: block;
+}
+
+#menulist{
+    column-count: 2;
+    text-align: center;
+    column-span: all;
+    font-size: 12px;
+}
+
+div#createproduct, div#allproducts, div#editproducts, div#postproducts, div#newcategory, div#postreviews {
+    width: 700px;
+    margin: 10px auto;
+    text-align: left;
+    border: 1px solid #8565c4;;
+    padding: 50px;
+    background: #ffffff;
+    color: #8565c4;
+}
+
+
+fieldset {
+    margin-top: 10px;
+    color: #8565c4;
+    border: 1px solid #8565c4;
+}
+
+
+
+input, input[type=submit], input[type=reset] {
+    background-color: #fff;
+    border: 1px solid #8565c4;
+    color: #8565c4;;
+    padding: 5px 15px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+input[type=text], input[type=password] {
+    font-family: 'Mali', cursive;
+    border: 1px solid #8565c4;
+    color: #8565c4;
+    width: 15em;
+    height: 2.5em;
+}
+

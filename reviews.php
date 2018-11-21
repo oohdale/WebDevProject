@@ -1,0 +1,83 @@
+<?php
+
+require 'connect.php';
+
+$userName = filter_input(INPUT_POST, 'userName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$email = filter_input(INPUT_POST, 'email',FILTER_VALIDATE_EMAIL);
+$comment = filter_input(INPUT_POST, 'comment',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$reviewId = filter_input(INPUT_POST, 'reviewId', FILTER_VALIDATE_INT);
+
+$query = "SELECT * FROM review ORDER BY date";
+$statement = $db->prepare($query);
+$statement->execute();
+
+if(isset($_POST['submit']))
+{
+    header('Location: reviews.php');
+}
+
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Panda Tea House</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Mali|Shojumaru|Source+Sans+Pro" rel="stylesheet">
+</head>
+<body>
+<div id="wrapper">
+
+    <form class="searchbar" action="search.php" method="get">
+        <input type="text" name="search" />
+        <input type="submit" value="Search" />
+    </form>
+
+    <div id="header">
+        <h1><a href="index.php">Panda Bubble Tea</a></h1>
+        <img src="images/banner.png" alt="panda" class="aboutuspic">
+    </div> <!-- END div id="header" -->
+
+
+    <ul id="navbar">
+        <li><a href="index.php" class='active'>Home</a></li>
+        <li><a href="#aboutus" >About Us</a></li>
+        <li><a href="#menu" >Menu</a></li>
+        <li><a href="reviews.php">Reviews</a></li>
+        <li><a href="login.php" >Log In</a></li>
+        <li><a href="register.php" >Register</a></li>
+    </ul> <!-- END div id="menu" -->
+
+
+
+    <div id="reviews">
+        <form action="postreview.php" method="post">
+            <fieldset>
+                <h1>Reviews</h1>
+                <legend>Testimonies</legend>
+                <p>
+                    <label for="userName">Name</label>
+                    <input name="userName" id="userName">
+                    <label for="email">Email</label>
+                    <input name="email" id="email">
+                    <label for="comment">Comments</label>
+                    <textarea name ="comment" rows="4" cols="50"></textarea>
+                </p>
+                <p>
+                    <input type="submit" name="Add" value="Add Reviews">
+                </p>
+            </fieldset>
+        </form>
+
+        </div>
+
+    </div> <!-- END div id="welcome" -->
+
+    <div id="footer">
+        1041 McPhillips Street, (204)-123-1212, pandabubbletea@gmail.com
+    </div> <!-- END div id="footer" -->
+</div> <!-- END div id="wrapper" -->
+</body>
+</html>
