@@ -6,6 +6,10 @@ $query = "SELECT * FROM product ORDER BY productName";
 $statement = $db->prepare($query);
 $statement->execute();
 
+$queryCategory ="SELECT * FROM category ";
+$result = $db->prepare($queryCategory);
+$result -> execute();
+
 if(isset($_POST['submit']))
 {
     header('Location: search.php');
@@ -55,10 +59,12 @@ if(isset($_POST['submit']))
             <div id="menu"><a href="aboutus"></a><h1>Menu</h1>
                 <form name="sort" action="index.php#menu" method="post">
                     <select name="order">
-                        <option value="choose">Sort by</option>
-                        <option value="1">Milk Tea</option>
-                        <option value="2">Slush</option>
-                        <input type="submit" name="search" value="Sort"/>
+                        <?php while ($categoriesResult = $result->fetch()): ?>
+                            <option value="<?= $categoriesResult['categoryId']?>">
+                                <?= $categoriesResult['categoryName']?>
+                            </option>
+                        <?php endwhile ?>
+                        <input type="submit" name="search" value="Categories"/>
                     </select>
                 </form>
             </div>

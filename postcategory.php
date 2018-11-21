@@ -64,7 +64,7 @@ if(isset($_POST['Delete']))
 </ul> <!-- END div id="menu" -->
 
 <div id="newcategory">
-    <form action="postcategory.php.php" method="post">
+    <form action="postcategory.php" method="post">
         <fieldset>
             <?php if ((empty($categoryName)) || (empty($categoryDesc))):?>
                 <p><?= $error ?></p>

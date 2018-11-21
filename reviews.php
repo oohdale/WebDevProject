@@ -7,7 +7,7 @@ $email = filter_input(INPUT_POST, 'email',FILTER_VALIDATE_EMAIL);
 $comment = filter_input(INPUT_POST, 'comment',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $reviewId = filter_input(INPUT_POST, 'reviewId', FILTER_VALIDATE_INT);
 
-$query = "SELECT * FROM review ORDER BY date";
+$query = "SELECT * FROM review";
 $statement = $db->prepare($query);
 $statement->execute();
 
@@ -37,8 +37,8 @@ $statement->execute();
 
     <ul id="navbar">
         <li><a href="index.php" class='active'>Home</a></li>
-        <li><a href="#aboutus" >About Us</a></li>
-        <li><a href="#menu" >Menu</a></li>
+        <li><a href="index.php#aboutus" >About Us</a></li>
+        <li><a href="index.php#menu" >Menu</a></li>
         <li><a href="reviews.php">Contact Us</a></li>
         <li><a href="login.php" >Log In</a></li>
         <li><a href="register.php" >Register</a></li>
@@ -49,8 +49,7 @@ $statement->execute();
     <div id="reviews">
         <form action="postreview.php" method="post">
             <fieldset>
-                <h1>Reviews</h1>
-                <legend>Testimonies</legend>
+                <legend>Contact Us</legend>
                 <p>
                     <label for="fullname">Name</label>
                     <input name="fullname" id="fullname">
@@ -63,8 +62,12 @@ $statement->execute();
                     <input type="submit" name="Add" value="Add Reviews">
                 </p>
             </fieldset>
+            <fieldset>
+                <?php while ($fullname = $statement->fetch()): ?>
+                    <h2><a href="show.php?productId=<?= $fullname['reviewId']?>"><?= $fullname['$fullname'] ?></a></h2>
+                <?php endwhile ?>
+            </fieldset>
         </form>
-
         </div>
 
     </div> <!-- END div id="welcome" -->

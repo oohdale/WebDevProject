@@ -11,53 +11,26 @@ $email = filter_input(INPUT_POST, 'email',FILTER_VALIDATE_EMAIL);
 $comment = filter_input(INPUT_POST, 'comment',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $postType = filter_input(INPUT_POST, 'command');
 $reviewId = filter_input(INPUT_POST, 'reviewId', FILTER_VALIDATE_INT);
+$error = "You must fill out everything.";
 
+$query = "SELECT * FROM review";
+$statement = $db->prepare($query);
+$statement->execute();
 
 if(isset($_POST['Add'])) {
 
-    if  ((empty($fullname)) || (empty($email)) || (empty($comment)))
-    {
-        $error = "You must fill out everything.";
-    }
-
-    else {
+    if ((empty($fullname)) || (empty($email)) || (empty($comment))) {
+        $error;
+    } else {
         $query = "INSERT INTO review (fullname,email,comment,date) VALUES (:fullname,:email,:comment,:date)";
         $statement = $db->prepare($query);
-        $bind_value = [':fullname' => $fullname, ':email' => $email , ':comment' => $comment];
+        $bind_value = [':fullname' => $fullname, ':email' => $email, ':comment' => $comment];
         $statement->execute($bind_value);
 
-        header('Location: reviews.php');
+        header('Location: postreview.php');
 
     }
-
 }
-
-if($postType == 'Update')
-{
-    //change the post in the database
-    $query = "UPDATE review SET fullname = :fullname, email = :email, comment = :comment, date = :date WHERE reviewId = :reviewId";
-    $statement = $db->prepare($query);
-    $statement->execute(array(
-        ':fullname' => $fullname,
-        ':email' => $email,
-        ':comment' => $comment,
-        ':date' => $date
-    ));
-
-
-    header('Location: reviews.php?id='.$productId);
-    exit();
-}
-if($postType == 'Delete')
-{
-    $query = "DELETE FROM review WHERE reviewId = :reviewId";
-    $statement = $db->prepare($query);
-    $bind_value = ['reviewId' => $reviewId];
-    $statement->execute($bind_value);
-    header('Location: reviews.php');
-    exit();
-}
-
 
 ?>
 
@@ -87,9 +60,9 @@ if($postType == 'Delete')
 <div id="postreviews">
     <form action="postreview.php" method="post">
         <fieldset>
-            <?php if ((empty( $fullnameame)) || (empty($email) || (empty($comment)))):?>
-                <p><?= $error ?></p>
-            <?php endif?>
+            <?php while ($fullname = $statement->fetch()): ?>
+                <h2><a href="show.php?productId=<?= $fullname['reviewId']?>"><?= $fullname['$fullname'] ?></a></h2>
+            <?php endwhile ?>
         </fieldset>
     </form>
 </div> <!-- END div id="allproducts" -->
