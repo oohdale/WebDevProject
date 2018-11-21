@@ -11,12 +11,6 @@ $query = "SELECT * FROM review ORDER BY date";
 $statement = $db->prepare($query);
 $statement->execute();
 
-if(isset($_POST['submit']))
-{
-    header('Location: reviews.php');
-}
-
-
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +39,7 @@ if(isset($_POST['submit']))
         <li><a href="index.php" class='active'>Home</a></li>
         <li><a href="#aboutus" >About Us</a></li>
         <li><a href="#menu" >Menu</a></li>
-        <li><a href="reviews.php">Reviews</a></li>
+        <li><a href="reviews.php">Contact Us</a></li>
         <li><a href="login.php" >Log In</a></li>
         <li><a href="register.php" >Register</a></li>
     </ul> <!-- END div id="menu" -->

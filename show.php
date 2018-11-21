@@ -59,7 +59,7 @@ else {
         <li><a href="index.php">Home</a></li>
         <li><a href="index.php#aboutus" >About Us</a></li>
         <li><a href="index.php#menu"  class='active'>Menu</a></li>
-          <li><a href="reviews.php">Reviews</a></li>
+          <li><a href="reviews.php">Contact Us</a></li>
         <li><a href="create.php" >Log In</a></li>
     </ul> <!-- END div id="menu" -->
 

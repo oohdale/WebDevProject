@@ -32,7 +32,7 @@ This
         <li><a href="create.php">Product</a></li>
         <li><a href="category.php" class='active'>Category</a></li>
         <li><a href="menu.php" class='active'>Menu</a></li>
-        <li><a href="reviews.php">Reviews</a></li>
+        <li><a href="reviews.php">Contact Us</a></li>
         <li><a href="index.php">Home</a></li>
         <li><a href="logout.php">Log Out</a></li>
     </ul> <!-- END div id="menu" -->

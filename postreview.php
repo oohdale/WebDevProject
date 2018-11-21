@@ -79,7 +79,7 @@ if($postType == 'Delete')
     <li><a href="create.php" class='active'>Product</a></li>
     <li><a href="category.php">Category</a></li>
     <li><a href="menu.php" >Menu</a></li>
-    <li><a href="reviews.php">Reviews</a></li>
+    <li><a href="reviews.php">Contact Us</a></li>
     <li><a href="index.php">Home</a></li>
     <li><a href="logout.php">Log Out</a></li>
 </ul> <!-- END div id="menu" -->
@@ -87,10 +87,9 @@ if($postType == 'Delete')
 <div id="postreviews">
     <form action="postreview.php" method="post">
         <fieldset>
-            <?php if ((empty( $fullname)) || (empty($email) || (empty($comment)))):?>
+            <?php if ((empty( $fullnameame)) || (empty($email) || (empty($comment)))):?>
                 <p><?= $error ?></p>
             <?php endif?>
-
         </fieldset>
     </form>
 </div> <!-- END div id="allproducts" -->
