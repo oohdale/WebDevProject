@@ -2,7 +2,7 @@
 
 require 'connect.php';
 
-$userName = filter_input(INPUT_POST, 'userName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$fullname = filter_input(INPUT_POST, 'fullname',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $email = filter_input(INPUT_POST, 'email',FILTER_VALIDATE_EMAIL);
 $comment = filter_input(INPUT_POST, 'comment',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $reviewId = filter_input(INPUT_POST, 'reviewId', FILTER_VALIDATE_INT);
@@ -58,8 +58,8 @@ if(isset($_POST['submit']))
                 <h1>Reviews</h1>
                 <legend>Testimonies</legend>
                 <p>
-                    <label for="userName">Name</label>
-                    <input name="userName" id="userName">
+                    <label for="fullname">Name</label>
+                    <input name="fullname" id="fullname">
                     <label for="email">Email</label>
                     <input name="email" id="email">
                     <label for="comment">Comments</label>

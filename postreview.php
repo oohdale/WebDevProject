@@ -6,7 +6,7 @@ before it display on the blog.
 <?php
 require 'connect.php';
 
-$userName = filter_input(INPUT_POST, 'userName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$fullname = filter_input(INPUT_POST, 'fullname',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $email = filter_input(INPUT_POST, 'email',FILTER_VALIDATE_EMAIL);
 $comment = filter_input(INPUT_POST, 'comment',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $postType = filter_input(INPUT_POST, 'command');
@@ -15,15 +15,15 @@ $reviewId = filter_input(INPUT_POST, 'reviewId', FILTER_VALIDATE_INT);
 
 if(isset($_POST['Add'])) {
 
-    if  ((empty($userName)) || (empty($email)) || (empty($comment)))
+    if  ((empty($fullname)) || (empty($email)) || (empty($comment)))
     {
         $error = "You must fill out everything.";
     }
 
     else {
-        $query = "INSERT INTO review (userName,email,comment,date) VALUES (:userName,:email,:comment,:date)";
+        $query = "INSERT INTO review (fullname,email,comment,date) VALUES (:fullname,:email,:comment,:date)";
         $statement = $db->prepare($query);
-        $bind_value = [':userName' => $userName, ':email' => $email , ':comment' => $comment];
+        $bind_value = [':fullname' => $fullname, ':email' => $email , ':comment' => $comment];
         $statement->execute($bind_value);
 
         header('Location: reviews.php');
@@ -35,10 +35,10 @@ if(isset($_POST['Add'])) {
 if($postType == 'Update')
 {
     //change the post in the database
-    $query = "UPDATE review SET userName = :userName, email = :email, comment = :comment, date = :date WHERE reviewId = :reviewId";
+    $query = "UPDATE review SET fullname = :fullname, email = :email, comment = :comment, date = :date WHERE reviewId = :reviewId";
     $statement = $db->prepare($query);
     $statement->execute(array(
-        ':userName' => $userName,
+        ':fullname' => $fullname,
         ':email' => $email,
         ':comment' => $comment,
         ':date' => $date
@@ -87,7 +87,7 @@ if($postType == 'Delete')
 <div id="postreviews">
     <form action="postreview.php" method="post">
         <fieldset>
-            <?php if ((empty( $userName)) || (empty($email) || (empty($comment)))):?>
+            <?php if ((empty( $fullname)) || (empty($email) || (empty($comment)))):?>
                 <p><?= $error ?></p>
             <?php endif?>
 

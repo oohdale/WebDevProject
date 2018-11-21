@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07b1b49c-ff96-4952-a3b6-8ff9c4d5caf0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postreview.php" beforeDir="false" afterPath="$PROJECT_DIR$/postreview.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reviews.php" beforeDir="false" afterPath="$PROJECT_DIR$/reviews.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,10 +75,20 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="php" value="1" />
+          <entry key="php" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PHP" value="11" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="php" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PHP" value="1" />
         </counts>
@@ -86,10 +98,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/postreview.php">
+        <entry file="file://$PROJECT_DIR$/reviews.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="43" column="24" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+            <state relative-caret-position="691">
+              <caret line="61" column="55" selection-start-line="61" selection-start-column="55" selection-end-line="61" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -102,6 +114,7 @@
       <find>new</find>
       <find>command</find>
       <find>post</find>
+      <find>username</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -126,9 +139,9 @@
         <option value="$PROJECT_DIR$/postcategory.php" />
         <option value="$PROJECT_DIR$/search.php" />
         <option value="$PROJECT_DIR$/show.php" />
-        <option value="$PROJECT_DIR$/reviews.php" />
         <option value="$PROJECT_DIR$/style.css" />
         <option value="$PROJECT_DIR$/postreview.php" />
+        <option value="$PROJECT_DIR$/reviews.php" />
       </list>
     </option>
   </component>
@@ -141,8 +154,9 @@
   <component name="PhpServers">
     <servers />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="1" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-15" />
+    <option name="y" value="-18" />
     <option name="width" value="1943" />
     <option name="height" value="1050" />
   </component>
@@ -213,18 +227,18 @@
       <workItem from="1542305058136" duration="2769000" />
       <workItem from="1542583455094" duration="6063000" />
       <workItem from="1542827561377" duration="3715000" />
-      <workItem from="1542831861167" duration="54000" />
+      <workItem from="1542831861167" duration="422000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85087000" />
+    <option name="totallyTimeSpent" value="85455000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="0" width="1554" height="840" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49646392" visible="true" weight="0.11914324" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49646392" visible="true" weight="0.119463086" />
       <window_info id="Structure" order="1" sideWeight="0.50353605" side_tool="true" weight="0.14270613" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -365,13 +379,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reviews.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/edit.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="816">
@@ -395,8 +402,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/postreview.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="43" column="24" selection-start-line="43" selection-start-column="24" selection-end-line="43" selection-end-column="24" />
+        <state relative-caret-position="-1262">
+          <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reviews.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="691">
+          <caret line="61" column="55" selection-start-line="61" selection-start-column="55" selection-end-line="61" selection-end-column="55" />
         </state>
       </provider>
     </entry>
