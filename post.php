@@ -6,49 +6,92 @@ before it display on the blog.
 <?php
     require 'connect.php';
 
-    $productId = filter_input(INPUT_POST, 'categoryId', FILTER_VALIDATE_INT);
+    print_r($_POST);
+    $productId = filter_input(INPUT_POST, 'productId', FILTER_VALIDATE_INT);
     $postType = filter_input(INPUT_POST, 'command');
     $productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $productDesc = filter_input(INPUT_POST, 'productDesc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $test = "";
 
+    function file_is_an_image($temporary_path, $new_path)
+    {
+        $allowed_mime_types      = ['image/gif', 'image/jpeg', 'image/png'];
+
+        $allowed_file_extensions = ['gif', 'jpg', 'jpeg', 'png'];
+
+        $actual_file_extension   = pathinfo($new_path, PATHINFO_EXTENSION);
+        $actual_mime_type        = getimagesize($temporary_path)['mime'];
+
+        $file_extension_is_valid = in_array($actual_file_extension, $allowed_file_extensions);
+        $mime_type_is_valid      = in_array($actual_mime_type, $allowed_mime_types);
+
+        return $file_extension_is_valid && $mime_type_is_valid;
+    }
+
+    function file_upload_path($original_filename, $upload_subfolder = 'uploads')
+    {
+        $current_Folder = dirname(__FILE__);
+        $path_segments = [$current_Folder, $upload_subfolder, basename($original_filename)];
+        return join(DIRECTORY_SEPARATOR, $path_segments);
+    }
 
     if(isset($_POST['Add'])) {
 
-        if  ((empty($productName)) || (empty($productDesc)))
-        {
+        if ((empty($productName)) || (empty($productDesc))) {
             $error = "You must fill out everything.";
         }
 
-        else {
-            $query = "INSERT INTO product (productName,productDesc, category) VALUES (:productName,:productDesc, :category)";
-            $statement = $db->prepare($query);
-            $bind_value = [':productName' => $productName, ':productDesc' => $productDesc , ':category' => $category];
-            $statement->execute($bind_value);
+        if (isset($_FILES['image'])) {
 
-            header('Location: menu.php');
-            exit();
+            $image_filename = $_FILES['image']['name'];
+            $temporary_image_path = $_FILES['image']['tmp_name'];
+
+            $new_image_path = file_upload_path($image_filename);
+            $file_check = file_is_an_image($temporary_image_path, $new_image_path);
+
+            if ($file_check) {
+
+                move_uploaded_file($temporary_image_path, "uploads/$image_filename");
+
+                $query = "INSERT INTO product (productName,productDesc, category, date, productImage) VALUES (:productName,:productDesc, :category, :date, :productImage)";
+                $statement = $db->prepare($query);
+                $bind_value = [':productName' => $productName, ':productDesc' => $productDesc, ':category' => $category, ':date' => $date, ':productImage' => $image_filename];
+                $statement->execute($bind_value);
+
+                header('Location: menu.php');
+            } else {
+                $image_filename = "Empty";
+
+                $query = "INSERT INTO product (productName,productDesc, category, date, productImage) VALUES (:productName,:productDesc, :category, :date, :productImage)";
+                $statement = $db->prepare($query);
+                $bind_value = [':productName' => $productName, ':productDesc' => $productDesc, ':category' => $category, ':date' => $date, ':productImage' => $image_filename];
+                $statement->execute($bind_value);
+
+                header('Location: menu.php');
+
+            }
         }
-
     }
 
     if($postType == 'Update')
     {
         //change the post in the database
-        $query = "UPDATE product SET productName = :productName, productDesc = :productDesc, category = :category, date = :date WHERE productId = :productId";
+        $query = "UPDATE product SET productName = :productName, productDesc = :productDesc, category = :category WHERE productId = :productId";
         $statement = $db->prepare($query);
         $statement->execute(array(
             ':productName' => $productName,
             ':productDesc' => $productDesc,
             ':category' => $category,
-            ':date' => $date,
             ':productId' => $productId
         ));
 
+       $test = $productId;
+
 
         //header('Location: index.php?id='.$productId);
-        header('Location: menu.php');
-        exit();
+        //header('Location: menu.php');
+
     }
     if($postType == 'Delete')
     {
@@ -56,8 +99,9 @@ before it display on the blog.
         $statement = $db->prepare($query);
         $bind_value = ['productId' => $productId];
         $statement->execute($bind_value);
-        header('Location: menu.php?id='.$productId);
-        exit();
+       // header('Location: menu.php?id='.$productId);
+        $test = $productId;
+
     }
 
 
@@ -92,7 +136,7 @@ before it display on the blog.
        <?php if ((empty( $productName)) || (empty($productDesc) || (empty($category)))):?>
           <p><?= $error ?></p>
             <?php endif?>
-
+            <?=$test?>
         </fieldset>
       </form>
     </div> <!-- END div id="allproducts" -->

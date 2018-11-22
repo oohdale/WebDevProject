@@ -41,9 +41,12 @@ This
 
 <div id="createproduct">
     <h1>Welcome to Products!</h1>
-      <form action="post.php" method="post">
+      <form action="post.php" method="post" enctype="multipart/form-data">
         <fieldset>
           <legend>New Product</legend>
+            <p><label for="image">Product Image File</label>
+                <input type="file" name="image" id="image">
+            </p>
           <p>
             <label for="productName">Product Name</label>
             <input name="productName" id="productName">
@@ -56,7 +59,7 @@ This
             <label for="category">Category</label>
             <select name="category" id="category">
                 <?php while ($result = $statement->fetch()): ?>
-                    <option value="<?php echo $result['categoryName']?>">
+                    <option value="<?php echo $result['categoryId']?>">
                         <?php echo $result['categoryName']?>
                     </option>
                 <?php endwhile ?>

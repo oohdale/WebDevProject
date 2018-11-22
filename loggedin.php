@@ -10,6 +10,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST['username']) && (isset($_POST['password']))) {
 
+        //$passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $query = "SELECT * FROM user WHERE username=:username and password=:password";
         $statement = $db->prepare($query);
         $statement->bindValue(':username', $username);

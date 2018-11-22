@@ -72,15 +72,15 @@ a blog from the database.
                 <label for="category">Category</label>
                 <select name="category" id="category">
                     <?php while ($categoriesResult = $result->fetch()): ?>
-                        <option value="<?= $categoriesResult['categoryId']?>">
-                            <?= $categoriesResult['categoryName']?>
+                        <option value="<?=$categoriesResult['categoryId']?>">
+                            <?=$categoriesResult['categoryName']?>
                         </option>
                     <?php endwhile ?>
                 </select>
             </p>
           <p>
 <!--            <input type="submit" name="command" value="Create">-->
-            <input type="hidden" name="id" value='<?= $product["productId"] ?>'>
+            <input type="hidden" name="productId" value='<?= $product["productId"] ?>'>
             <input type="submit" name="command" value="Update">
             <input type="submit" name="command" value="Delete" onclick="return confirm('Are you sure you want to delete this from the menu?')">
           </p>

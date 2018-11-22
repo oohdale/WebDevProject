@@ -7,23 +7,31 @@ $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $password1 = filter_input(INPUT_POST, 'password1', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+
+$query = "SELECT * FROM user";
+$statement = $db->prepare($query);
+$statement->execute();
+
     if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if(isset($_POST['register']))
         {
-            $password=md5($password1);
-            $query = "INSERT INTO user (username, email, password) VALUES (:username,:email,:password)";
-            $statement = $db->prepare($query);
-            $statement->bindValue(':username', $username);
-            $statement->bindValue(':email', $email);
-            $statement->bindValue(':password', $password);
-            $statement->execute();
-            $row = $statement->fetch();
 
+            if($password1 == $password2)
+            {
+                $password = password_hash($_POST['password1'], PASSWORD_DEFAULT);
+                $query = "INSERT INTO user (username, email, password) VALUES (:username,:email,:password)";
+                $statement = $db->prepare($query);
+                $statement->bindValue(':username', $username);
+                $statement->bindValue(':email', $email);
+                $statement->bindValue(':password', $password);
+                $statement->execute();
+                $row = $statement->fetch();
 
-            $_SESSION['username']=$username;
-            $_SESSION['success']="You are now logged in";
-            header('location:index.php');
+                $_SESSION['username'] = $username;
+                $_SESSION['success'] = "You are now logged in";
+                header('location:index.php');
+            }
         }
     }
 
@@ -39,6 +47,9 @@ $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_FULL_SPECIAL_
 <a href="index.php">Home</a>
 <form method="post" id="register" action="register.php">
     <h2>Register</h2>
+    <?php if ($password1 != $password2) :?>
+        <p>Password does not match.</p>
+    <?php endif ?>
 
         <label for="username">Username</label>
         <input type="text" name="username" class="form-control" placeholder="User Name" required autofocus>
@@ -56,6 +67,9 @@ $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_FULL_SPECIAL_
         <input type="reset" name="reset" value="Reset">
     </p>
     <p> Already have an account? <a href="login.php">Sign in</a>  </p>
+
+
+
 
 </form>
 </body>

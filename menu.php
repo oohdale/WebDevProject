@@ -43,8 +43,9 @@ This
     <legend>Menu List</legend>
         <?php while ($product = $statement->fetch()): ?>
             <h2><a href="show.php?productId=<?= $product['productId']?>"><?= $product['productName'] ?></a> </h2>
-            <b>Last Edited</b> <?= date('F d, Y, h:m A',strtotime($product['date']))?> <br><br>
+            <b>Last Edited</b> <?= date('F d, Y, h:i A',strtotime($product['date']))?> <br><br>
             <?= substr($product['productDesc'], 0, 200)?>
+            <img src="uploads\<?=$product['productImage']?> "alt="image">
             <a href="edit.php?productId=<?= $product['productId']?>">Edit</a>
         <?php endwhile ?>
      </fieldset>
