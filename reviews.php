@@ -59,7 +59,7 @@ $statement->execute();
                     <textarea name ="comment" rows="4" cols="50"></textarea>
                 </p>
                 <p>
-                    <input type="submit" name="Add" value="Add Reviews">
+                    <input type="submit" name="Add" value="Send">
                 </p>
             </fieldset>
             <fieldset>

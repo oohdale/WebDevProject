@@ -69,6 +69,7 @@ else {
         <div class="productdesc">
           <?=  $product['productDesc'] ?>
         </div>
+          <p><img src="uploads\<?=$product['productImage']?> "alt="image"></p>
       </div>
     </div>
 

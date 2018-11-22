@@ -11,14 +11,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['username']) && (isset($_POST['password']))) {
 
         //$passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $query = "SELECT * FROM user WHERE username=:username and password=:password";
+        $query = "SELECT * FROM user WHERE username=:username";
         $statement = $db->prepare($query);
         $statement->bindValue(':username', $username);
-        $statement->bindValue(':password', $password);
         $statement->execute();
         $row = $statement->fetch();
 
-        if ($row) {
+        //echo password_hash($password, PASSWORD_DEFAULT);
+        if ($row && password_verify($password,$row['password'])) {
 
             $_SESSION['login_user'] = $username;
             $_SESSION['errormessage'] = 'None';

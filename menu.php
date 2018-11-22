@@ -43,14 +43,15 @@ This
     <legend>Menu List</legend>
         <?php while ($product = $statement->fetch()): ?>
             <h2><a href="show.php?productId=<?= $product['productId']?>"><?= $product['productName'] ?></a> </h2>
+            <?= substr($product['productDesc'], 0, 200)?>  <strong><a href="edit.php?productId=<?= $product['productId']?>">Edit</a></strong>
+            <p><img src="uploads\<?=$product['productImage']?> "alt="image"></p>
             <b>Last Edited</b> <?= date('F d, Y, h:i A',strtotime($product['date']))?> <br><br>
-            <?= substr($product['productDesc'], 0, 200)?>
-            <img src="uploads\<?=$product['productImage']?> "alt="image">
-            <a href="edit.php?productId=<?= $product['productId']?>">Edit</a>
+
         <?php endwhile ?>
      </fieldset>
 
 
+</div>
 
         <div id="footer">
        1041 McPhillips Street, (204)-123-1212, pandabubbletea@gmail.com

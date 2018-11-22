@@ -12,29 +12,45 @@ $query = "SELECT * FROM user";
 $statement = $db->prepare($query);
 $statement->execute();
 
+$user_exists=false;
+
     if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        if(isset($_POST['register']))
-        {
+        if (isset($_POST['register'])) {
+            if (strlen($password1) >= 10) {
+                if ($password1 == $password2) {
+                    $password = password_hash($password1, PASSWORD_DEFAULT);
 
-            if($password1 == $password2)
-            {
-                $password = password_hash($_POST['password1'], PASSWORD_DEFAULT);
-                $query = "INSERT INTO user (username, email, password) VALUES (:username,:email,:password)";
-                $statement = $db->prepare($query);
-                $statement->bindValue(':username', $username);
-                $statement->bindValue(':email', $email);
-                $statement->bindValue(':password', $password);
-                $statement->execute();
-                $row = $statement->fetch();
+                    $query = "SELECT * FROM user WHERE username=:username";
+                    $statement = $db->prepare($query);
+                    $statement->bindValue(':username', $username);
+                    $statement->execute();
+                    $row = $statement->fetch();
 
-                $_SESSION['username'] = $username;
-                $_SESSION['success'] = "You are now logged in";
-                header('location:index.php');
+
+                    if ($row)
+                    {
+                        $user_exists=true;
+                    }
+                    else {
+
+
+                        $query = "INSERT INTO user (username, email, password) VALUES (:username,:email,:password)";
+                        $statement = $db->prepare($query);
+                        $statement->bindValue(':username', $username);
+                        $statement->bindValue(':email', $email);
+                        $statement->bindValue(':password', $password);
+                        $statement->execute();
+                        $row = $statement->fetch();
+
+                        $_SESSION['username'] = $username;
+                        $_SESSION['success'] = "You are now logged in";
+                        header('location:index.php');
+                    }
+                }
             }
         }
     }
-
 ?>
 
 <html>
@@ -49,13 +65,17 @@ $statement->execute();
     <h2>Register</h2>
     <?php if ($password1 != $password2) :?>
         <p>Password does not match.</p>
+    <?php elseif (strlen($password1) < 10) :?>
+        <p>Password must be 10 characters or more.</p>
+    <?php elseif ($user_exists) :?>
+    <p>Username is already taken.</p>
     <?php endif ?>
 
         <label for="username">Username</label>
-        <input type="text" name="username" class="form-control" placeholder="User Name" required autofocus>
+        <input type="text" name="username" class="form-control" placeholder="User Name" value="<?=$username?>" required autofocus>
 
         <label for="email">Email</label>
-        <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
+        <input type="email" name="email" class="form-control" placeholder="Email" value="<?=$email?>" required autofocus>
 
         <label for="password1">Password</label>
         <input type="password" name="password1" class="form-control" placeholder="Password" required autofocus>

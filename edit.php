@@ -10,11 +10,15 @@ a blog from the database.
     $productName = filter_input(INPUT_POST, 'productName');
     $productDesc = filter_input(INPUT_POST, 'productDesc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $category = filter_input(INPUT_POST, 'category');
+    $productImage = filter_input(INPUT_POST,'productImage');
 
     $queryCategory ="SELECT * FROM category ";
     $result = $db->prepare($queryCategory);
     $result -> execute();
 
+    //$queryImage = "SELECT * FROM productImage ";
+    //$image_result = $db->prepare($queryImage);
+    //$image_result -> execute();
 
     if(isset($_GET['productId'])) {
 
@@ -28,6 +32,7 @@ a blog from the database.
 
         //print_r($product);
     }
+
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +61,7 @@ a blog from the database.
         </ul> <!-- END div id="menu" -->
 
 <div id="editproducts">
-      <form id="editproducts" action="post.php" method="post">
+      <form id="editproducts" action="post.php" method="post" enctype="multipart/form-data">
         <fieldset>
           <legend>Edit Product</legend>
           <p>
@@ -66,6 +71,16 @@ a blog from the database.
             <p>
                 <label for="productDesc">Product Description</label>
                 <input name="productDesc" id="productDesc" value="<?= $product['productDesc'] ?>">
+            </p>
+
+            <p>
+                <label for="productImage">Product Image</label>
+                <?php if($product['productImage']):?>
+                    <img src="uploads\<?=$product['productImage']?> "alt="image">
+                    <input type="checkbox" name="productImage" id="productImage" <?php if($product['productImage']) echo 'checked="checked"' ?> value="<?= $product['productImage'] ?>">
+                <?php else:?>
+                <input type="file" name="image" id="image">
+                <?php endif?>
             </p>
 
             <p>
@@ -79,6 +94,7 @@ a blog from the database.
                 </select>
             </p>
           <p>
+
 <!--            <input type="submit" name="command" value="Create">-->
             <input type="hidden" name="productId" value='<?= $product["productId"] ?>'>
             <input type="submit" name="command" value="Update">

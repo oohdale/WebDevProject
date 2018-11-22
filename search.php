@@ -4,9 +4,9 @@ require 'connect.php';
 $search = $_GET['search'];
 $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-$search_results = "SELECT * FROM product WHERE productName LIKE '%$search%'";
+$search_results = "SELECT * FROM product WHERE productName LIKE :search";
 $statement=$db->prepare($search_results);
-$statement->bindValue(':search', $search);
+$statement->bindValue(':search', '%'.$search.'%');
 $statement->execute();
 $row=$statement->fetch();
 
@@ -47,10 +47,13 @@ $row=$statement->fetch();
 
     <div id="searchpage">
         <h1>Try again...</h1>
-        <?php if($row > 0): ?>
-            <?php while ($result = $statement->fetch()): ?>
-                <p><a href="show.php?productId=<?=$result['productId']?>"><?=$result['productName']?></a></p>
-            <?php endwhile ?>
+        <?php if($row): ?>
+            <?php while ($row): ?>
+                <p><a href="show.php?productId=<?=$row['productId']?>"><?=$row['productName']?></a></p>
+            <?php
+                $row = $statement->fetch();
+                endwhile;
+                ?>
         <?php else: ?>
             <h2>No Results...</h2>
         <?php endif?>

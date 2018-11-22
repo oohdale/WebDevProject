@@ -16,12 +16,30 @@
     <link href="https://fonts.googleapis.com/css?family=Mali|Shojumaru|Source+Sans+Pro" rel="stylesheet">
 </head>
 <body>
-<a href="index.php">Panda Bubble Tea</a>
+
+
+<div id="header">
+    <h1><a href="index.php">Panda Bubble Tea</a></h1>
+    <img src="images/banner.png" alt="panda" class="aboutuspic">
+</div> <!-- END div id="header" -->
+
+
+    <ul id="navbar">
+        <li><a href="create.php" class='active'>Product</a></li>
+        <li><a href="category.php">Category</a></li>
+        <li><a href="menu.php" >Menu</a></li>
+        <li><a href="reviews.php">Contact Us</a></li>
+        <li><a href="index.php">Home</a></li>
+        <li><a href="logout.php">Log Out</a></li>
+    </ul> <!-- END div id="menu" -->
+
+</div>
+<fieldset>
 <?php if (isset($_SESSION['login_user'])) :?>
-    <h2>You're still signed in!</h2>
-    <a href="create.php">Home</a>
-    <h2><a href="logout.php">Click here to log out.</a></h2>
+    <h2>You're still signed in <?=$_SESSION['login_user']?>!</h2>
 <?php endif ?>
+</fieldset>
+
 <?php if (!isset($_SESSION['login_user'])) :?>
     <form action="loggedin.php" id="login" method="post">
         <h2>Please sign in</h2>

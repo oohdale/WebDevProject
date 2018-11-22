@@ -11,6 +11,7 @@ before it display on the blog.
 
     //print_r($_POST);
     $productId = filter_input(INPUT_POST, 'productId', FILTER_VALIDATE_INT);
+    $productImage = filter_input(INPUT_POST, 'productImage');
     $postType = filter_input(INPUT_POST, 'command');
     $productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $productDesc = filter_input(INPUT_POST, 'productDesc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -38,59 +39,50 @@ before it display on the blog.
         $path_segments = [$current_Folder, $upload_subfolder, basename($original_filename)];
         return join(DIRECTORY_SEPARATOR, $path_segments);
     }
+    if (isset($_FILES['image'])) {
 
+        $image_filename = $_FILES['image']['name'];
+        $productImage = $image_filename;
+        $temporary_image_path = $_FILES['image']['tmp_name'];
+
+        $new_image_path = file_upload_path($image_filename);
+        $file_check = file_is_an_image($temporary_image_path, $new_image_path);
+
+        if ($file_check) {
+
+            move_uploaded_file($temporary_image_path, "uploads/$image_filename");
+
+            $image = new ImageResize("uploads/$image_filename");
+            $image->scale(20);
+            $image->save("uploads/$image_filename");
+
+
+        }
+    }
     if(isset($_POST['Add'])) {
 
         if ((empty($productName)) || (empty($productDesc))) {
             $error = "You must fill out everything.";
         }
 
-        if (isset($_FILES['image'])) {
 
-            $image_filename = $_FILES['image']['name'];
-            $temporary_image_path = $_FILES['image']['tmp_name'];
+            $query = "INSERT INTO product (productName,productDesc, category, date, productImage) VALUES (:productName,:productDesc, :category, :date, :productImage)";
+            $statement = $db->prepare($query);
+            $bind_value = [':productName' => $productName, ':productDesc' => $productDesc, ':category' => $category, ':date' => $date, ':productImage' => $productImage];
+            $statement->execute($bind_value);
 
-            $new_image_path = file_upload_path($image_filename);
-            $file_check = file_is_an_image($temporary_image_path, $new_image_path);
-
-            if ($file_check) {
-
-                move_uploaded_file($temporary_image_path, "uploads/$image_filename");
-
-                $image = new ImageResize("uploads/$image_filename");
-                $image->scale(20);
-                $image->save("uploads/$image_filename");
-
-
-                $query = "INSERT INTO product (productName,productDesc, category, date, productImage) VALUES (:productName,:productDesc, :category, :date, :productImage)";
-                $statement = $db->prepare($query);
-                $bind_value = [':productName' => $productName, ':productDesc' => $productDesc, ':category' => $category, ':date' => $date, ':productImage' => $image_filename];
-                $statement->execute($bind_value);
-
-                header('Location: menu.php');
-            } else {
-                $image_filename = "Empty";
-
-                $query = "INSERT INTO product (productName,productDesc, category, date, productImage) VALUES (:productName,:productDesc, :category, :date, :productImage)";
-                $statement = $db->prepare($query);
-                $bind_value = [':productName' => $productName, ':productDesc' => $productDesc, ':category' => $category, ':date' => $date, ':productImage' => $image_filename];
-                $statement->execute($bind_value);
-
-                header('Location: menu.php');
-
-            }
-        }
+            header('Location: menu.php');
     }
-
     if($postType == 'Update')
     {
         //change the post in the database
-        $query = "UPDATE product SET productName = :productName, productDesc = :productDesc, category = :category WHERE productId = :productId";
+        $query = "UPDATE product SET productName = :productName, productDesc = :productDesc, category = :category, productImage = :productImage WHERE productId = :productId";
         $statement = $db->prepare($query);
         $statement->execute(array(
             ':productName' => $productName,
             ':productDesc' => $productDesc,
             ':category' => $category,
+            ':productImage' => $productImage,
             ':productId' => $productId
         ));
 

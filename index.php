@@ -7,8 +7,16 @@ $categoryName = filter_input(INPUT_POST, 'categoryName',FILTER_SANITIZE_FULL_SPE
 $categoryDesc = filter_input(INPUT_POST, 'categoryDesc',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 $query = "SELECT * FROM product";
+if($categoryId) :
+
+    $query .= " WHERE category = :categoryId";
+endif;
 $statement = $db->prepare($query);
+if($categoryId) {
+   $statement->bindParam(':categoryId', $categoryId);
+}
 $statement->execute();
+
 
 $queryCategory ="SELECT * FROM category ";
 $result = $db->prepare($queryCategory);
@@ -62,12 +70,13 @@ if(isset($_POST['submit']))
             <div id="menu"><a href="aboutus"></a><h1>Menu</h1>
                 <form name="sort" action="index.php#menu" method="post">
                     <select name="categoryId" id="categoryId">
+                        <option value="">Select Category</option>
                         <?php while ($categoriesResult = $result->fetch()): ?>
                             <option value="<?= $categoriesResult['categoryId']?>">
                                 <?= $categoriesResult['categoryName']?>
                             </option>
                         <?php endwhile ?>
-                        <input type="submit" name="categories" value="Categories"/>
+                        <input type="submit" name="categories" value="Sort"/>
                     </select>
                 </form>
             </div>
@@ -75,6 +84,7 @@ if(isset($_POST['submit']))
         <div id="menulist">
             <?php while ($product = $statement->fetch()): ?>
             <h2><a href="show.php?productId=<?= $product['productId']?>"><?= $product['productName'] ?></a></h2>
+            <p><img src="uploads\<?=$product['productImage']?> "alt="image"></p>
         <?php endwhile ?>
     </div>
     </div> <!-- END div id="welcome" -->
