@@ -84,7 +84,9 @@ if(isset($_POST['submit']))
         <div id="menulist">
             <?php while ($product = $statement->fetch()): ?>
             <h2><a href="show.php?productId=<?= $product['productId']?>"><?= $product['productName'] ?></a></h2>
-            <p><img src="uploads\<?=$product['productImage']?> "alt="image"></p>
+             <?php if($product['productImage']):?>
+                <img src="uploads\<?=$product['productImage']?> "alt="image">
+            <?php endif?>
         <?php endwhile ?>
     </div>
     </div> <!-- END div id="welcome" -->

@@ -34,11 +34,11 @@
     </ul> <!-- END div id="menu" -->
 
 </div>
-<fieldset>
+
 <?php if (isset($_SESSION['login_user'])) :?>
     <h2>You're still signed in <?=$_SESSION['login_user']?>!</h2>
 <?php endif ?>
-</fieldset>
+
 
 <?php if (!isset($_SESSION['login_user'])) :?>
     <form action="loggedin.php" id="login" method="post">

@@ -76,6 +76,7 @@ a blog from the database.
             <p>
                 <label for="productImage">Product Image</label>
                 <?php if($product['productImage']):?>
+            <p>Uncheck if you want the image to be deleted and click update.</p>
                     <img src="uploads\<?=$product['productImage']?> "alt="image">
                     <input type="checkbox" name="productImage" id="productImage" <?php if($product['productImage']) echo 'checked="checked"' ?> value="<?= $product['productImage'] ?>">
                 <?php else:?>

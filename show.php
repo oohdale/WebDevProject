@@ -50,9 +50,10 @@ else {
     <link href="https://fonts.googleapis.com/css?family=Mali|Shojumaru|Source+Sans+Pro" rel="stylesheet">
 </head>
 <body>
+<div id="wrapper">
     <div id="header">
         <h1><a href="index.php">Panda Bubble Tea</a></h1>
-        <img src="images/banner.png" alt="panda" class="center">
+        <img src="images/banner.png" alt="panda" class="aboutuspic">
     </div> <!-- END div id="header" -->
 
       <ul id="navbar">
@@ -69,13 +70,14 @@ else {
         <div class="productdesc">
           <?=  $product['productDesc'] ?>
         </div>
-          <p><img src="uploads\<?=$product['productImage']?> "alt="image"></p>
+          <?php if($product['productImage']):?>
+              <img src="uploads\<?=$product['productImage']?> "alt="image">
+          <?php endif?>
       </div>
     </div>
-
       <div id="footer">
-          <img src="images/footerimage.png" alt="panda" class="center">
           1041 McPhillips Street, (204)-123-1212, pandabubbletea@gmail.com
       </div> <!-- END div id="footer" -->
+</div>
 </body>
 </html>
