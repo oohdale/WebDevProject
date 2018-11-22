@@ -6,13 +6,16 @@ before it display on the blog.
 <?php
     require 'connect.php';
 
-    print_r($_POST);
+    include 'ImageResize.php';
+    use \Gumlet\ImageResize;
+
+    //print_r($_POST);
     $productId = filter_input(INPUT_POST, 'productId', FILTER_VALIDATE_INT);
     $postType = filter_input(INPUT_POST, 'command');
     $productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $productDesc = filter_input(INPUT_POST, 'productDesc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $test = "";
+    //$test = "";
 
     function file_is_an_image($temporary_path, $new_path)
     {
@@ -54,6 +57,11 @@ before it display on the blog.
 
                 move_uploaded_file($temporary_image_path, "uploads/$image_filename");
 
+                $image = new ImageResize("uploads/$image_filename");
+                $image->scale(20);
+                $image->save("uploads/$image_filename");
+
+
                 $query = "INSERT INTO product (productName,productDesc, category, date, productImage) VALUES (:productName,:productDesc, :category, :date, :productImage)";
                 $statement = $db->prepare($query);
                 $bind_value = [':productName' => $productName, ':productDesc' => $productDesc, ':category' => $category, ':date' => $date, ':productImage' => $image_filename];
@@ -86,11 +94,11 @@ before it display on the blog.
             ':productId' => $productId
         ));
 
-       $test = $productId;
+       //$test = $productId;
 
 
         //header('Location: index.php?id='.$productId);
-        //header('Location: menu.php');
+        header('Location: menu.php');
 
     }
     if($postType == 'Delete')
@@ -99,8 +107,9 @@ before it display on the blog.
         $statement = $db->prepare($query);
         $bind_value = ['productId' => $productId];
         $statement->execute($bind_value);
-       // header('Location: menu.php?id='.$productId);
-        $test = $productId;
+
+       header('Location: menu.php?id='.$productId);
+       //$test = $productId;
 
     }
 
