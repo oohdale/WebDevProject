@@ -13,7 +13,6 @@ before it display on the blog.
     $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 
-
     if(isset($_POST['Add'])) {
 
         if  ((empty($productName)) || (empty($productDesc)))
@@ -27,7 +26,7 @@ before it display on the blog.
             $bind_value = [':productName' => $productName, ':productDesc' => $productDesc , ':category' => $category];
             $statement->execute($bind_value);
 
-            header('Location: index.php');
+            header('Location: menu.php');
             exit();
         }
 
@@ -47,7 +46,8 @@ before it display on the blog.
         ));
 
 
-        header('Location: index.php?id='.$productId);
+        //header('Location: index.php?id='.$productId);
+        header('Location: menu.php');
         exit();
     }
     if($postType == 'Delete')
@@ -56,7 +56,7 @@ before it display on the blog.
         $statement = $db->prepare($query);
         $bind_value = ['productId' => $productId];
         $statement->execute($bind_value);
-        header('Location: index.php');
+        header('Location: menu.php?id='.$productId);
         exit();
     }
 

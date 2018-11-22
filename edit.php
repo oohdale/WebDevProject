@@ -11,6 +11,11 @@ a blog from the database.
     $productDesc = filter_input(INPUT_POST, 'productDesc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $category = filter_input(INPUT_POST, 'category');
 
+    $queryCategory ="SELECT * FROM category ";
+    $result = $db->prepare($queryCategory);
+    $result -> execute();
+
+
     if(isset($_GET['productId'])) {
 
         $productId = filter_input(INPUT_GET, 'productId', FILTER_VALIDATE_INT);
@@ -22,7 +27,6 @@ a blog from the database.
         $product = $statement->fetch();
 
         //print_r($product);
-
     }
 ?>
 
@@ -67,8 +71,12 @@ a blog from the database.
             <p>
                 <label for="category">Category</label>
                 <select name="category" id="category">
-                    <option value="1">Milk Tea</option>
-                    <option value="2">Slush</option>
+                    <?php while ($categoriesResult = $result->fetch()): ?>
+                        <option value="<?= $categoriesResult['categoryId']?>">
+                            <?= $categoriesResult['categoryName']?>
+                        </option>
+                    <?php endwhile ?>
+                </select>
             </p>
           <p>
 <!--            <input type="submit" name="command" value="Create">-->

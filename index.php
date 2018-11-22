@@ -2,7 +2,11 @@
 
 require 'connect.php';
 
-$query = "SELECT * FROM product ORDER BY productName";
+$categoryId = filter_input(INPUT_POST, 'categoryId',FILTER_VALIDATE_INT);
+$categoryName = filter_input(INPUT_POST, 'categoryName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$categoryDesc = filter_input(INPUT_POST, 'categoryDesc',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+$query = "SELECT * FROM product";
 $statement = $db->prepare($query);
 $statement->execute();
 
@@ -10,12 +14,11 @@ $queryCategory ="SELECT * FROM category ";
 $result = $db->prepare($queryCategory);
 $result -> execute();
 
+
 if(isset($_POST['submit']))
 {
     header('Location: search.php');
 }
-
-
 
 ?>
 
@@ -58,13 +61,13 @@ if(isset($_POST['submit']))
         <p>Here at Panda Bubble Tea, we are dedicated to serving you consistent and quality food and beverages. Our drink flavors include matcha, taro, and red bean with toppings such as boba, grass jelly and lychee jelly. Takeout and delivery is available online ordering. We are located at1041 McPhillips Street</p>
             <div id="menu"><a href="aboutus"></a><h1>Menu</h1>
                 <form name="sort" action="index.php#menu" method="post">
-                    <select name="order">
+                    <select name="categoryId" id="categoryId">
                         <?php while ($categoriesResult = $result->fetch()): ?>
                             <option value="<?= $categoriesResult['categoryId']?>">
                                 <?= $categoriesResult['categoryName']?>
                             </option>
                         <?php endwhile ?>
-                        <input type="submit" name="search" value="Categories"/>
+                        <input type="submit" name="categories" value="Categories"/>
                     </select>
                 </form>
             </div>

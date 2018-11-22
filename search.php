@@ -46,7 +46,7 @@ $row=$statement->fetch();
 
 
     <div id="searchpage">
-        <h1>Search...</h1>
+        <h1>Try again...</h1>
         <?php if($row > 0): ?>
             <?php while ($result = $statement->fetch()): ?>
                 <p><a href="show.php?productId=<?=$result['productId']?>"><?=$result['productName']?></a></p>
