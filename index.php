@@ -70,13 +70,13 @@ if(isset($_POST['submit']))
             <div id="menu"><a href="aboutus"></a><h1>Menu</h1>
                 <form name="sort" action="index.php#menu" method="post">
                     <select name="categoryId" id="categoryId">
-                        <option value="">Select Category</option>
+                        <option value="">All Categories</option>
                         <?php while ($categoriesResult = $result->fetch()): ?>
                             <option value="<?= $categoriesResult['categoryId']?>">
                                 <?= $categoriesResult['categoryName']?>
                             </option>
                         <?php endwhile ?>
-                        <input type="submit" name="categories" value="Sort"/>
+                        <input type="submit" name="categories" value="Submit"/>
                     </select>
                 </form>
             </div>

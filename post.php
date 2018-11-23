@@ -55,10 +55,16 @@ before it display on the blog.
             $image = new ImageResize("uploads/$image_filename");
             $image->scale(20);
             $image->save("uploads/$image_filename");
+        }
 
-
+        if(!$file_check)
+        {
+            unlink("uploads/$image_filename");
         }
     }
+
+
+
     if(isset($_POST['Add'])) {
 
         if ((empty($productName)) || (empty($productDesc))) {

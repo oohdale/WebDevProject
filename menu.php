@@ -33,7 +33,7 @@ This
         <li><a href="category.php" class='active'>Category</a></li>
         <li><a href="menu.php" class='active'>Menu</a></li>
         <li><a href="reviews.php">Contact Us</a></li>
-        <li><a href="index.php">Home</a></li>
+        <li><a href="account.php">Account</a></li>
         <li><a href="logout.php">Log Out</a></li>
     </ul> <!-- END div id="menu" -->
 
@@ -44,9 +44,10 @@ This
         <?php while ($product = $statement->fetch()): ?>
             <h2><a href="show.php?productId=<?= $product['productId']?>"><?= $product['productName'] ?></a> </h2>
             <?= substr($product['productDesc'], 0, 200)?>  <strong><a href="edit.php?productId=<?= $product['productId']?>">Edit</a></strong>
-            <p><img src="uploads\<?=$product['productImage']?> "alt="image"></p>
-            <b>Last Edited</b> <?= date('F d, Y, h:i A',strtotime($product['date']))?> <br><br>
-
+            <?php if($product['productImage']):?>
+                <p><img src="uploads\<?=$product['productImage']?> "alt="image"></p>
+            <?php endif?>
+            <p><b>Last Edited</b> <?= date('F d, Y, h:i A',strtotime($product['date']))?> </p>
         <?php endwhile ?>
      </fieldset>
 
