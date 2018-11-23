@@ -17,7 +17,7 @@ $product = $statement-> fetchAll();
 
 if(isset($_GET['productId'])) {
 
-    $productId = filter_input(INPUT_GET, 'productId', FILTER_VALIDATE_INT);
+    $productId = filter_input(INPUT_GET, 'productId', FILTER_SANITIZE_NUMBER_INT);
 
     $query = "SELECT * FROM Product WHERE productId = :productId;";
     // Returns a PDOStatement object.

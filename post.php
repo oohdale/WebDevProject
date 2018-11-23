@@ -10,13 +10,13 @@ before it display on the blog.
     use \Gumlet\ImageResize;
 
     //print_r($_POST);
-    $productId = filter_input(INPUT_POST, 'productId', FILTER_VALIDATE_INT);
+    $productId = filter_input(INPUT_POST, 'productId', FILTER_SANITIZE_NUMBER_INT);
     $productImage = filter_input(INPUT_POST, 'productImage');
     $postType = filter_input(INPUT_POST, 'command');
     $productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $productDesc = filter_input(INPUT_POST, 'productDesc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    //$test = "";
+    $error="You must fill out the Product Name, Product Description and Select a Category to add a new product on the menu.";
 
     function file_is_an_image($temporary_path, $new_path)
     {
@@ -57,30 +57,37 @@ before it display on the blog.
             $image->save("uploads/$image_filename");
         }
 
-        if(!$file_check)
-        {
-            unlink("uploads/$image_filename");
-        }
     }
 
-
+    //echo "uploads/".$image_filename;
 
     if(isset($_POST['Add'])) {
 
-        if ((empty($productName)) || (empty($productDesc))) {
-            $error = "You must fill out everything.";
+        if((empty($productName)) || (empty($productDesc)) || (empty($category)))
+        {
+            $error;
         }
 
-
-            $query = "INSERT INTO product (productName,productDesc, category, date, productImage) VALUES (:productName,:productDesc, :category, :date, :productImage)";
+        else {
+            $query = "INSERT INTO product (productName,productDesc, category, productImage) VALUES (:productName,:productDesc, :category, :productImage)";
             $statement = $db->prepare($query);
-            $bind_value = [':productName' => $productName, ':productDesc' => $productDesc, ':category' => $category, ':date' => $date, ':productImage' => $productImage];
+            $bind_value = [':productName' => $productName, ':productDesc' => $productDesc, ':category' => $category, ':productImage' => $productImage];
             $statement->execute($bind_value);
 
             header('Location: menu.php');
+        }
     }
     if($postType == 'Update')
     {
+
+        $deleteImageQuery="SELECT productImage FROM product WHERE productId = :productId";
+        $deleteImageStatement = $db->prepare($deleteImageQuery);
+        $bindDeleteImage = ['productId' => $productId];
+        $deleteImageStatement->execute($bindDeleteImage);
+        $imageDeleteRow = $deleteImageStatement -> fetch();
+        $imageName = $imageDeleteRow['productImage'];
+        unlink("uploads/$imageName");
+
         //change the post in the database
         $query = "UPDATE product SET productName = :productName, productDesc = :productDesc, category = :category, productImage = :productImage WHERE productId = :productId";
         $statement = $db->prepare($query);
@@ -101,6 +108,14 @@ before it display on the blog.
     }
     if($postType == 'Delete')
     {
+        $deleteImageQuery="SELECT productImage FROM product WHERE productId = :productId";
+        $deleteImageStatement = $db->prepare($deleteImageQuery);
+        $bindDeleteImage = ['productId' => $productId];
+        $deleteImageStatement->execute($bindDeleteImage);
+        $imageDeleteRow = $deleteImageStatement -> fetch();
+        $imageName = $imageDeleteRow['productImage'];
+        unlink("uploads/$imageName");
+
         $query = "DELETE FROM product WHERE productId = :productId";
         $statement = $db->prepare($query);
         $bind_value = ['productId' => $productId];
@@ -140,10 +155,7 @@ before it display on the blog.
 <div id="postproducts">
       <form action="post.php" method="post">
         <fieldset>
-       <?php if ((empty( $productName)) || (empty($productDesc) || (empty($category)))):?>
           <p><?= $error ?></p>
-            <?php endif?>
-            <?=$test?>
         </fieldset>
       </form>
     </div> <!-- END div id="allproducts" -->

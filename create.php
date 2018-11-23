@@ -5,9 +5,9 @@ This
 <?php
   require 'connect.php';
 
-    $categoryId = filter_input(INPUT_POST, 'categoryId');
-    $categoryName = filter_input(INPUT_POST, 'categoryName');
-    $categoryDesc = filter_input(INPUT_POST, 'categoryDesc');
+    $categoryId = filter_input(INPUT_POST, 'categoryId',FILTER_SANITIZE_NUMBER_INT);
+    $categoryName = filter_input(INPUT_POST, 'categoryName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $categoryDesc = filter_input(INPUT_POST, 'categoryDesc',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     $query = "SELECT * FROM category";
     $statement = $db->prepare($query);
@@ -58,6 +58,7 @@ This
           <p>
             <label for="category">Category</label>
             <select name="category" id="category">
+                <option value=""></option>
                 <?php while ($result = $statement->fetch()): ?>
                     <option value="<?php echo $result['categoryId']?>">
                         <?php echo $result['categoryName']?>

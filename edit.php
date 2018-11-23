@@ -7,10 +7,10 @@ a blog from the database.
 
     require 'connect.php';
 
-    $productName = filter_input(INPUT_POST, 'productName');
+    $productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $productDesc = filter_input(INPUT_POST, 'productDesc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $category = filter_input(INPUT_POST, 'category');
-    $productImage = filter_input(INPUT_POST,'productImage');
+    $category = filter_input(INPUT_POST, 'category',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $productImage = filter_input(INPUT_POST,'productImage',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     $queryCategory ="SELECT * FROM category ";
     $result = $db->prepare($queryCategory);
@@ -42,6 +42,8 @@ a blog from the database.
     <title>Edit Menu</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Mali|Shojumaru|Source+Sans+Pro" rel="stylesheet">
+
+
 </head>
 <body>
 <div id="wrapper">
@@ -87,6 +89,7 @@ a blog from the database.
             <p>
                 <label for="category">Category</label>
                 <select name="category" id="category">
+                    <option value="">Select Category</option>
                     <?php while ($categoriesResult = $result->fetch()): ?>
                         <option value="<?=$categoriesResult['categoryId']?>">
                             <?=$categoriesResult['categoryName']?>
