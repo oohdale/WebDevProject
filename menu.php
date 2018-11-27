@@ -5,6 +5,11 @@ This
 <?php
   require 'connect.php';
 
+    if(!isset($_SESSION['privilege']) || $_SESSION['privilege'] != 'Admin')
+    {
+        header('Location: index.php');
+    }
+
   $query = "SELECT * FROM Product ORDER BY productId";
   // Returns a PDOStatement object.
   $statement = $db->prepare($query);

@@ -2,6 +2,11 @@
 
     require 'connect.php';
 
+if(!isset($_SESSION['privilege']) || $_SESSION['privilege'] != 'Admin')
+{
+    header('Location: index.php');
+}
+
 $username = filter_input(INPUT_POST, 'username',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 

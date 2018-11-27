@@ -5,6 +5,11 @@ This
 <?php
   require 'connect.php';
 
+    if(!isset($_SESSION['privilege']) || $_SESSION['privilege'] != 'Admin')
+    {
+        header('Location: index.php');
+    }
+
     $categoryId = filter_input(INPUT_POST, 'categoryId',FILTER_SANITIZE_NUMBER_INT);
     $categoryName = filter_input(INPUT_POST, 'categoryName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $categoryDesc = filter_input(INPUT_POST, 'categoryDesc',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
