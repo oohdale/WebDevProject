@@ -91,7 +91,7 @@ a blog from the database.
                 <select name="category" id="category">
                     <option value="">Select Category</option>
                     <?php while ($categoriesResult = $result->fetch()): ?>
-                        <option value="<?=$categoriesResult['categoryId']?>">
+                        <option <?php if($categoriesResult['categoryId'] == $product["category"]) echo 'selected="selected"';?> value="<?=$categoriesResult['categoryId']?>">
                             <?=$categoriesResult['categoryName']?>
                         </option>
                     <?php endwhile ?>
