@@ -11,10 +11,13 @@ if($categoryId) :
 
     $query .= " WHERE category = :categoryId";
 endif;
+
 $statement = $db->prepare($query);
+
 if($categoryId) {
    $statement->bindParam(':categoryId', $categoryId);
 }
+
 $statement->execute();
 
 
@@ -60,7 +63,6 @@ if(isset($_POST['submit']))
         <li><a href="login.php" >Log In</a></li>
         <li><a href="register.php" >Register</a></li>
     </ul> <!-- END div id="menu" -->
-
 
 
     <div id="welcome">

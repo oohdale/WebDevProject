@@ -10,7 +10,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST['username']) && (isset($_POST['password']))) {
 
-        //$passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $query = "SELECT * FROM user WHERE username=:username";
         $statement = $db->prepare($query);
         $statement->bindValue(':username', $username);
@@ -21,6 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($row && password_verify($password,$row['password'])) {
 
             $_SESSION['login_user'] = $username;
+            $_SESSION['privilege'] = $row['privilege'];
             $_SESSION['errormessage'] = 'None';
             header('Location:loggedin.php');
 
@@ -54,7 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <li><a href="create.php">Product</a></li>
         <li><a href="category.php">Category</a></li>
         <li><a href="menu.php" >Menu</a></li>
-        <li><a href="index.php">Home</a></li>
+        <li><a href="account.php">Account</a></li>
         <li><a href="logout.php">Log Out</a></li>
     </ul> <!-- END div id="menu" -->
     <div id="newcategory">

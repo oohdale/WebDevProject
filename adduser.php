@@ -1,17 +1,6 @@
 <?php
 require 'connect.php';
 
-if(!isset($_SESSION['privilege']) || $_SESSION['privilege'] != 'Admin')
-{
-    header('Location: index.php');
-}
-
-/*if(isset($_SESSION['privilege'] == 'Admin'))
-{
-    header('Location: account.php');
-}*/
-
-$userId = filter_input(INPUT_POST, 'userId',FILTER_VALIDATE_INT);
 $userName = filter_input(INPUT_POST, 'userName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -20,10 +9,15 @@ $password1 = filter_input(INPUT_POST, 'password1', FILTER_SANITIZE_FULL_SPECIAL_
 $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 
-
+$query = "SELECT * FROM user";
+$statement = $db->prepare($query);
+//$statement->bindValue(':userName', $userName);
+$statement->execute();
+$row = $statement->fetch();
 $user_exists = false;
 
 if (isset($_POST['Add'])) {
+
     if (strlen($password1) >= 10) {
 
         if ($password1 == $password2) {
@@ -36,6 +30,7 @@ if (isset($_POST['Add'])) {
             $statement->execute();
             $row = $statement->fetch();
 
+
             if ($row) {
                 $user_exists = true;
             } else {
@@ -47,30 +42,26 @@ if (isset($_POST['Add'])) {
                 $statement->bindValue(':email', $email);
                 $statement->bindValue(':password', $password);
                 $statement->execute();
+                $row = $statement->fetch();
 
                 $_SESSION['userName'] = $userName;
                 $_SESSION['success'] = "You are now logged in";
-                header('location:account.php');
+                //header('location:account.php');
             }
         }
     }
 }
-if($postType == 'Delete')
+/*if($postType == 'Delete')
 {
     $query = "DELETE FROM user WHERE userId = :userId";
     $statement = $db->prepare($query);
     $bind_value = ['userId' => $userId];
     $statement->execute($bind_value);
 
-    header('Location: menu.php?id='.$productId);
+    //header('Location: menu.php?id='.$productId);
     //$test = $productId;
 
-}
-$query = "SELECT * FROM user WHERE userName <> 'admin'";
-$userQuery = $db->prepare($query);
-//$statement->bindValue(':userName', $userName);
-$userQuery->execute();
-
+}*/
 
 
 ?>
@@ -84,7 +75,6 @@ $userQuery->execute();
     <link href="https://fonts.googleapis.com/css?family=Mali|Shojumaru|Source+Sans+Pro" rel="stylesheet">
 </head>
 <body>
-<script>//alert('refresh');</script>
 <div id="wrapper">
     <div id="header">
         <h1><a href="index.php">Panda Bubble Tea</a></h1>
@@ -107,15 +97,14 @@ $userQuery->execute();
         <?php endif ?>
 
         <form method="post" id="Delete" action="account.php">
-        <h2>All Registered Users</h2>
-            <?php while ($row = $userQuery->fetch()): ?>
+            <h2>All Registered Users</h2>
+            <?php while ($row = $statement->fetch()): ?>
                 <h3>Username: <?= $row['userName']?></h3>
                 <p><?= $row['email'] ?></p>
-            <p>
-                <input type="hidden" name="userId" value="<?= $row['userId']?>" />
-                <input type="submit" name="command" value="Delete">
-            </p>
-        <?php endwhile ?>
+                <p>
+                    <input type="submit" name="command" value="Delete <?= $row['userName']?>">
+                </p>
+            <?php endwhile ?>
         </form>
 
         <form method="post" id="Add" action="account.php">
@@ -130,7 +119,7 @@ $userQuery->execute();
             <?php endif ?>
 
             <label for="username">Username</label>
-            <input type="text" name="userName" class="form-control" placeholder="User Name" value="<?=$userName?>" required autofocus>
+            <input type="text" name="username" class="form-control" placeholder="User Name" value="<?=$userName?>" required autofocus>
 
             <label for="email">Email</label>
             <input type="email" name="email" class="form-control" placeholder="Email" value="<?=$email?>" required autofocus>

@@ -106,9 +106,7 @@ label {
 }
 
 #menulist{
-    column-count: 2;
     text-align: center;
-    column-span: all;
     font-size: 12px;
 }
 
