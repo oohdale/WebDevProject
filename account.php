@@ -110,7 +110,7 @@ $userQuery->execute();
         <h2>All Registered Users</h2>
             <?php while ($row = $userQuery->fetch()): ?>
                 <h3>Username: <?= $row['userName']?></h3>
-                <p><?= $row['email'] ?></p>
+                <p>Email Address: <?= $row['email'] ?></p>
             <p>
                 <input type="hidden" name="userId" value="<?= $row['userId']?>" />
                 <input type="submit" name="command" value="Delete">

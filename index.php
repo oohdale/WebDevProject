@@ -45,6 +45,7 @@ if(isset($_POST['submit']))
 <div id="wrapper">
 
     <form class="searchbar" action="search.php" method="get">
+<!--        <form class="searchbar" action="#menu" method="get">-->
         <input type="text" name="search" />
         <input type="submit" value="Search" />
     </form>
@@ -59,7 +60,7 @@ if(isset($_POST['submit']))
         <li><a href="index.php" class='active'>Home</a></li>
         <li><a href="#aboutus" >About Us</a></li>
         <li><a href="#menu" >Menu</a></li>
-        <li><a href="reviews.php">Contact Us</a></li>
+        <li><a href="contactus.php">Contact Us</a></li>
         <li><a href="login.php" >Log In</a></li>
         <li><a href="register.php" >Register</a></li>
     </ul> <!-- END div id="menu" -->
