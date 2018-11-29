@@ -2,14 +2,16 @@
 
 require 'connect.php';
 
-$fullname = filter_input(INPUT_POST, 'fullname',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$commentId = filter_input(INPUT_POST, 'commentId', FILTER_VALIDATE_INT);
+$name = filter_input(INPUT_POST, 'name',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $email = filter_input(INPUT_POST, 'email',FILTER_VALIDATE_EMAIL);
 $comment = filter_input(INPUT_POST, 'comment',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$reviewId = filter_input(INPUT_POST, 'reviewId', FILTER_VALIDATE_INT);
 
-$query = "SELECT * FROM review";
-$statement = $db->prepare($query);
-$statement->execute();
+
+$commentQuery = "SELECT * FROM comments";
+$statement = $db->prepare($commentQuery);
+$statement -> execute();
+
 
 ?>
 
@@ -20,6 +22,12 @@ $statement->execute();
     <title>Panda Tea House</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Mali|Shojumaru|Source+Sans+Pro" rel="stylesheet">
+    <script type="text/javascript" src="<your installation path>/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: "textarea"
+        });
+    </script>
 </head>
 <body>
 <div id="wrapper">
@@ -55,17 +63,14 @@ $statement->execute();
                     <input name="fullname" id="fullname">
                     <label for="email">Email</label>
                     <input name="email" id="email">
-                    <label for="comment">Comments</label>
-                    <textarea name ="comment" rows="4" cols="50"></textarea>
                 </p>
+                <p><textarea name ="comment" rows="4" cols="50"></textarea></p>
                 <p>
                     <input type="submit" name="Add" value="Send">
                 </p>
             </fieldset>
             <fieldset>
-                <?php while ($fullname = $statement->fetch()): ?>
-                    <h2><a href="show.php?productId=<?= $fullname['reviewId']?>"><?= $fullname['$fullname'] ?></a></h2>
-                <?php endwhile ?>
+
             </fieldset>
         </form>
         </div>
