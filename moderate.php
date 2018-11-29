@@ -2,6 +2,11 @@
 
 require 'connect.php';
 
+if(!isset($_SESSION['privilege']) || $_SESSION['privilege'] != 'Admin')
+{
+    header('Location: contactus.php');
+}
+
 $commentId = filter_input(INPUT_POST, 'commentId', FILTER_VALIDATE_INT);
 $name = filter_input(INPUT_POST, 'name',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $email = filter_input(INPUT_POST, 'email',FILTER_VALIDATE_EMAIL);
@@ -88,17 +93,18 @@ if(isset($_POST['Add'])) {
                 <legend>Comments</legend>
                 <?php while ($row = $statement->fetch()): ?>
                     <p><strong>Name:</strong> <?= $row['name']?></p>
+                    <p><strong>Email:</strong> <?= $row['email'] ?></p>
                     <p><strong>Comment:</strong> <?= $row['comment'] ?></p>
                 <?php endwhile ?>
             </fieldset>
         </form>
-        </div>
+    </div>
 
-    </div> <!-- END div id="welcome" -->
+</div> <!-- END div id="welcome" -->
 
-    <div id="footer">
-        1041 McPhillips Street, (204)-123-1212, pandabubbletea@gmail.com
-    </div> <!-- END div id="footer" -->
+<div id="footer">
+    1041 McPhillips Street, (204)-123-1212, pandabubbletea@gmail.com
+</div> <!-- END div id="footer" -->
 </div> <!-- END div id="wrapper" -->
 </body>
 </html>
