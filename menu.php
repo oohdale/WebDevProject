@@ -19,23 +19,23 @@ $categoryId = filter_input(INPUT_POST, 'categoryId',FILTER_VALIDATE_INT);
 $categoryName = filter_input(INPUT_POST, 'categoryName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $categoryDesc = filter_input(INPUT_POST, 'categoryDesc',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-$query = "SELECT * FROM product";
-if($categoryId) :
+//$query = "SELECT * FROM product";
+//if($categoryId) :
+//
+//    $query .= " WHERE category = :categoryId";
+//endif;
+//
+//$statement = $db->prepare($query);
+//
+//if($categoryId) {
+//    $statement->bindParam(':categoryId', $categoryId);
+//}
+//
+//$statement->execute();
 
-    $query .= " WHERE category = :categoryId";
-endif;
-
-$statement = $db->prepare($query);
-
-if($categoryId) {
-    $statement->bindParam(':categoryId', $categoryId);
-}
-
-$statement->execute();
-
-$queryCategory ="SELECT * FROM category ";
-$result = $db->prepare($queryCategory);
-$result -> execute();
+//$queryCategory ="SELECT * FROM category ";
+//$result = $db->prepare($queryCategory);
+//$result -> execute();
 
 //if(isset($_POST['submit']))
 //{
@@ -51,14 +51,24 @@ $result -> execute();
 //}
 
 
-if(isset($_POST['submit']))
-{
     if(isset($_POST['asc']) && !empty($_POST['asc'])) {
         $productQuery = "SELECT * FROM Product ORDER BY productName";
         $productStatement = $db->prepare($productQuery);
         $productStatement->execute();
     }
-}
+
+    if(isset($_POST['desc']) && !empty($_POST['desc'])) {
+        $productQuery = "SELECT * FROM Product ORDER BY productName DESC";
+        $productStatement = $db->prepare($productQuery);
+        $productStatement->execute();
+    }
+
+
+    if(isset($_POST['datecreated']) && !empty($_POST['datecreated'])) {
+        $productQuery = "SELECT * FROM Product ORDER BY date";
+        $productStatement = $db->prepare($productQuery);
+        $productStatement->execute();
+    }
 
 ?>
 
@@ -86,17 +96,17 @@ if(isset($_POST['submit']))
         <li><a href="logout.php">Log Out</a></li>
     </ul> <!-- END div id="menu" -->
 
-    <form name="sort" action="menu.php" method="post">
-        <select name="categoryId" id="categoryId">
-            <option value="">All Categories</option>
-            <?php while ($categoriesResult = $result->fetch()): ?>
-                <option value="<?= $categoriesResult['categoryId']?>">
-                    <?= $categoriesResult['categoryName']?>
-                </option>
-            <?php endwhile ?>
-        </select>
-            <input type="submit" name="categories" value="Submit">
-    </form>
+<!--    <form name="sort" action="menu.php" method="post">-->
+<!--        <select name="categoryId" id="categoryId">-->
+<!--            <option value="">All Categories</option>-->
+<!--            --><?php //while ($categoriesResult = $result->fetch()): ?>
+<!--                <option value="--><?//= $categoriesResult['categoryId']?><!--">-->
+<!--                    --><?//= $categoriesResult['categoryName']?>
+<!--                </option>-->
+<!--            --><?php //endwhile ?>
+<!--        </select>-->
+<!--            <input type="submit" name="categories" value="Submit">-->
+<!--    </form>-->
 
 
     <fieldset>
@@ -105,10 +115,10 @@ if(isset($_POST['submit']))
 <!--        <input type="submit" value="Search" />-->
 
         <p>
-        <input type="submit" name="asc" value="Name ASC" /> <input type="submit" name="desc" value="Name Desc" /> <input type="submit" value="Date Created" />
+        <input type="submit" name="asc" value="Name ASC" /> <input type="submit" name="desc" value="Name Desc" /> <input type="submit" name="date" value="Date Created" />
         </p>
 
-        <?php while ($product = $statement->fetch()): ?>
+        <?php while ($product = $productStatement->fetch()): ?>
             <h2><a href="show.php?productId=<?= $product['productId']?>"><?= $product['productName'] ?></a> </h2>
             <?= substr($product['productDesc'], 0, 200)?>  <strong><a href="edit.php?productId=<?= $product['productId']?>">Edit</a></strong>
             <?php if($product['productImage']):?>
@@ -116,7 +126,6 @@ if(isset($_POST['submit']))
             <?php endif?>
             <p><b>Last Edited</b> <?= date('F d, Y, h:i A',strtotime($product['date']))?> </p>
         <?php endwhile ?>
-
 
 
     </fieldset>

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07b1b49c-ff96-4952-a3b6-8ff9c4d5caf0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/menu.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/search.php" beforeDir="false" afterPath="$PROJECT_DIR$/search.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,7 +68,7 @@
     <session id="-519423259">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="15" />
+          <entry key="project.closed" value="16" />
           <entry key="project.open.time.19" value="2" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.20" value="3" />
@@ -80,22 +80,22 @@
           <entry key="project.open.time.4" value="1" />
           <entry key="project.open.time.41" value="1" />
           <entry key="project.open.time.59" value="1" />
-          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.71" value="1" />
-          <entry key="project.opened" value="17" />
+          <entry key="project.opened" value="18" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="css" value="25" />
-          <entry key="php" value="7392" />
+          <entry key="php" value="7479" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="25" />
-          <entry key="PHP" value="7392" />
+          <entry key="PHP" value="7479" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -113,12 +113,12 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/menu.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
+            <state relative-caret-position="356">
+              <caret line="129" lean-forward="true" selection-start-line="129" selection-end-line="129" />
             </state>
           </provider>
         </entry>
@@ -182,8 +182,8 @@
     <servers />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="543" />
-    <option name="width" value="1397" />
+    <option name="x" value="542" />
+    <option name="width" value="1398" />
     <option name="height" value="1050" />
   </component>
   <component name="ProjectView">
@@ -270,16 +270,17 @@
       <workItem from="1543517475602" duration="4957000" />
       <workItem from="1543806688958" duration="6388000" />
       <workItem from="1543813123527" duration="3693000" />
+      <workItem from="1543817036686" duration="431000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="173628000" />
+    <option name="totallyTimeSpent" value="174059000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="435" y="0" width="1117" height="840" extended-state="0" />
+    <frame x="434" y="0" width="1118" height="840" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49646392" visible="true" weight="0.1513718" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49646392" visible="true" weight="0.15406427" />
       <window_info id="Structure" order="1" sideWeight="0.50353605" side_tool="true" weight="0.14270613" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -470,8 +471,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/menu.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
+        <state relative-caret-position="356">
+          <caret line="129" lean-forward="true" selection-start-line="129" selection-end-line="129" />
         </state>
       </provider>
     </entry>
