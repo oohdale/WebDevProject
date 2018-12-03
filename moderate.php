@@ -11,28 +11,24 @@ $commentId = filter_input(INPUT_POST, 'commentId', FILTER_VALIDATE_INT);
 $name = filter_input(INPUT_POST, 'name',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $email = filter_input(INPUT_POST, 'email',FILTER_VALIDATE_EMAIL);
 $comment = filter_input(INPUT_POST, 'comment',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$postType = filter_input(INPUT_POST, 'command');
 
 //$username = filter_input(INPUT_POST, 'username',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-$commentQuery = "SELECT * FROM comments";
+$commentQuery = "SELECT * FROM comments ORDER BY date DESC";
 $statement = $db->prepare($commentQuery);
 $statement -> execute();
 
-if(isset($_POST['Add'])) {
+if($postType == 'Delete')
+{
+    $query = "DELETE FROM comments WHERE commentId = :commentId";
+    $statement = $db->prepare($query);
+    $bind_value = ['commentId' => $commentId];
+    $statement->execute($bind_value);
 
-    if((empty($name)) || (empty($email)) || (empty($comment)))
-    {
-        $error = "You must fill out everything.";
-    }
+    header('Location: moderate.php?id='.$commentId);
+    //$test = $productId;
 
-    else {
-        $query = "INSERT INTO comments (name, email, comment) VALUES (:name,:email, :comment)";
-        $statement = $db->prepare($query);
-        $bind_value = [':name' => $name, ':email' => $email, ':comment' => $comment];
-        $statement->execute($bind_value);
-
-        header('Location: contactus.php');
-    }
 }
 
 ?>
@@ -72,29 +68,19 @@ if(isset($_POST['Add'])) {
 
 
     <div id="reviews">
-        <form action="contactus.php" method="post" role="form">
-            <fieldset>
-                <legend>Contact Us</legend>
-                <p>
-                    <label for="name">Name</label>
-                    <input name="name" id="name">
-                    <label for="email">Email</label>
-                    <input name="email" id="email">
-                </p>
-                <p>
-                    <label for="comment">Comments</label>
-                    <textarea name ="comment" rows="4" cols="50"></textarea>
-                </p>
-                <p>
-                    <input type="submit" name="Add" value="Send">
-                </p>
-            </fieldset>
+        <form action="moderate.php" method="post" role="form">
             <fieldset>
                 <legend>Comments</legend>
                 <?php while ($row = $statement->fetch()): ?>
                     <p><strong>Name:</strong> <?= $row['name']?></p>
+                    <p><strong>Date:</strong> <?= $row['date'] ?></p>
                     <p><strong>Email:</strong> <?= $row['email'] ?></p>
                     <p><strong>Comment:</strong> <?= $row['comment'] ?></p>
+                <p>
+                    <input type="hidden" name="commentId" value="<?= $row['commentId']?>" />
+                    <input type="submit" name="command" value="Delete">
+                </p>
+
                 <?php endwhile ?>
             </fieldset>
         </form>

@@ -6,10 +6,11 @@ $commentId = filter_input(INPUT_POST, 'commentId', FILTER_VALIDATE_INT);
 $name = filter_input(INPUT_POST, 'name',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $email = filter_input(INPUT_POST, 'email',FILTER_VALIDATE_EMAIL);
 $comment = filter_input(INPUT_POST, 'comment',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$error = "You must fill out everything.";
 
 //$username = filter_input(INPUT_POST, 'username',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-$commentQuery = "SELECT * FROM comments";
+$commentQuery = "SELECT * FROM comments ORDER BY date DESC";
 $statement = $db->prepare($commentQuery);
 $statement -> execute();
 
@@ -17,7 +18,7 @@ if(isset($_POST['Add'])) {
 
     if((empty($name)) || (empty($email)) || (empty($comment)))
     {
-        $error = "You must fill out everything.";
+        $error;
     }
 
     else {
@@ -88,8 +89,9 @@ if(isset($_POST['Add'])) {
                 <legend>Comments</legend>
                 <?php while ($row = $statement->fetch()): ?>
                     <p><strong>Name:</strong> <?= $row['name']?></p>
-                    <p><strong>Comment:</strong> <?= $row['comment'] ?></p>
+                    <p><strong>Comment:</strong> <?= $row['comment'] ?></p><br>
                 <?php endwhile ?>
+
             </fieldset>
         </form>
         </div>
