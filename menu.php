@@ -33,10 +33,32 @@ if($categoryId) {
 
 $statement->execute();
 
-
 $queryCategory ="SELECT * FROM category ";
 $result = $db->prepare($queryCategory);
 $result -> execute();
+
+//if(isset($_POST['submit']))
+//{
+//    $search = $_GET['search'];
+//    $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+//
+//    $search_results = "SELECT * FROM product WHERE productName LIKE :search";
+//    $statement=$db->prepare($search_results);
+//    $statement->bindValue(':search', '%'.$search.'%');
+//    $statement->execute();
+//    $row=$statement->fetch();
+//
+//}
+
+
+if(isset($_POST['submit']))
+{
+    if(isset($_POST['asc']) && !empty($_POST['asc'])) {
+        $productQuery = "SELECT * FROM Product ORDER BY productName";
+        $productStatement = $db->prepare($productQuery);
+        $productStatement->execute();
+    }
+}
 
 ?>
 
@@ -74,12 +96,18 @@ $result -> execute();
             <?php endwhile ?>
         </select>
             <input type="submit" name="categories" value="Submit">
-
     </form>
 
 
     <fieldset>
     <legend>Menu List</legend>
+<!--        <input type="text" name="search" />-->
+<!--        <input type="submit" value="Search" />-->
+
+        <p>
+        <input type="submit" name="asc" value="Name ASC" /> <input type="submit" name="desc" value="Name Desc" /> <input type="submit" value="Date Created" />
+        </p>
+
         <?php while ($product = $statement->fetch()): ?>
             <h2><a href="show.php?productId=<?= $product['productId']?>"><?= $product['productName'] ?></a> </h2>
             <?= substr($product['productDesc'], 0, 200)?>  <strong><a href="edit.php?productId=<?= $product['productId']?>">Edit</a></strong>
@@ -88,7 +116,22 @@ $result -> execute();
             <?php endif?>
             <p><b>Last Edited</b> <?= date('F d, Y, h:i A',strtotime($product['date']))?> </p>
         <?php endwhile ?>
-</fieldset>
+
+
+
+    </fieldset>
+
+
+
+
+<!--    --><?php //if($row = $statement->fetch()): ?>
+<!--        --><?php //while ($row): ?>
+<!--            <p><--><?//=$row['productName']?><!--</p>-->
+<!--            --><?php
+//            $row = $statement->fetch();
+//        endwhile;
+//        ?>
+<!--    --><?php //endif?>
 
 
 </div>

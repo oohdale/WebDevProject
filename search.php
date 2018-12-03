@@ -44,7 +44,7 @@ $row=$statement->fetch();
         <li><a href="login.php" >Log In</a></li>
     </ul> <!-- END div id="menu" -->
 
-
+<fieldset>
     <div id="searchpage">
         <?php if($row): ?>
             <?php while ($row): ?>
@@ -56,7 +56,7 @@ $row=$statement->fetch();
         <?php else: ?>
             <h2>No Results...</h2>
         <?php endif?>
-
+</fieldset>
     </div>
 </div> <!-- END div id="searchpage" -->
 
