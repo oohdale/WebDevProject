@@ -89,7 +89,7 @@ if(isset($_POST['Add'])) {
                 <legend>Comments</legend>
                 <?php while ($row = $statement->fetch()): ?>
                     <p><strong>Name:</strong> <?= $row['name']?></p>
-                    <p><strong>Comment:</strong> <?= $row['comment'] ?></p><br>
+                    <p><strong>Comment:</strong> <?= $row['comment'] ?></p>
                 <?php endwhile ?>
 
             </fieldset>

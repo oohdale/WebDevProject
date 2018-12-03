@@ -15,20 +15,19 @@ $postType = filter_input(INPUT_POST, 'command');
 
 //$username = filter_input(INPUT_POST, 'username',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+
 $commentQuery = "SELECT * FROM comments ORDER BY date DESC";
-$statement = $db->prepare($commentQuery);
-$statement -> execute();
+$commentStatement = $db->prepare($commentQuery);
+$commentStatement -> execute();
 
 if($postType == 'Delete')
 {
-    $query = "DELETE FROM comments WHERE commentId = :commentId";
-    $statement = $db->prepare($query);
+    $deleteQuery = "DELETE FROM comments WHERE commentId = :commentId";
+    $deleteStatement = $db->prepare($deleteQuery);
     $bind_value = ['commentId' => $commentId];
-    $statement->execute($bind_value);
+    $deleteStatement->execute($bind_value);
 
-    header('Location: moderate.php?id='.$commentId);
-    //$test = $productId;
-
+    header('Location: moderate.php');
 }
 
 ?>
@@ -71,7 +70,7 @@ if($postType == 'Delete')
         <form action="moderate.php" method="post" role="form">
             <fieldset>
                 <legend>Comments</legend>
-                <?php while ($row = $statement->fetch()): ?>
+                <?php while ($row = $commentStatement->fetch()): ?>
                     <p><strong>Name:</strong> <?= $row['name']?></p>
                     <p><strong>Date:</strong> <?= $row['date'] ?></p>
                     <p><strong>Email:</strong> <?= $row['email'] ?></p>
