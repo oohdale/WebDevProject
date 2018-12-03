@@ -34,7 +34,7 @@ if(isset($_POST['submit']))
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Panda Tea House</title>
@@ -79,8 +79,8 @@ if(isset($_POST['submit']))
                                 <?= $categoriesResult['categoryName']?>
                             </option>
                         <?php endwhile ?>
-                        <input type="submit" name="categories" value="Submit"/>
                     </select>
+                        <input type="submit" name="categories" value="Submit"/>
                 </form>
             </div>
 
@@ -88,7 +88,7 @@ if(isset($_POST['submit']))
             <?php while ($product = $statement->fetch()): ?>
             <h2><a href="show.php?productId=<?= $product['productId']?>"><?= $product['productName'] ?></a></h2>
              <?php if($product['productImage']):?>
-                <img src="uploads\<?=$product['productImage']?> "alt="image">
+                <img src="uploads/<?=$product['productImage']?>" alt="image">
             <?php endif?>
         <?php endwhile ?>
     </div>

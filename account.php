@@ -62,7 +62,7 @@ if($postType == 'Delete')
     $bind_value = ['userId' => $userId];
     $statement->execute($bind_value);
 
-    header('Location: menu.php?id='.$productId);
+    //header('Location: menu.php?id='.$productId);
     //$test = $productId;
 
 }
@@ -76,12 +76,12 @@ $userQuery->execute();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Panda Bubble Tea</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Mali|Shojumaru|Source+Sans+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
 <script>//alert('refresh');</script>
@@ -130,17 +130,17 @@ $userQuery->execute();
                 <p>Username is already taken.</p>
             <?php endif ?>
 
-            <label for="username">Username</label>
+            <label>Username</label>
             <input type="text" name="userName" class="form-control" placeholder="User Name" value="<?=$userName?>" required autofocus>
 
-            <label for="email">Email</label>
-            <input type="email" name="email" class="form-control" placeholder="Email" value="<?=$email?>" required autofocus>
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" placeholder="Email" value="<?=$email?>">
 
-            <label for="password1">Password</label>
-            <input type="password" name="password1" class="form-control" placeholder="Password" required autofocus>
+            <label>Password</label>
+            <input type="password" name="password1" class="form-control" placeholder="Password">
 
-            <label for="password2">Confirm password</label>
-            <input type="password" name="password2" class="form-control" placeholder="Password" required autofocus>
+            <label>Confirm password</label>
+            <input type="password" name="password2" class="form-control" placeholder="Password">
 
             <p> <input type="submit" name="Add" value="Add New User">
                 <input type="reset" name="reset" value="Reset">

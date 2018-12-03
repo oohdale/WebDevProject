@@ -34,7 +34,7 @@ if(isset($_POST['Add'])) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Panda Tea House</title>
@@ -68,7 +68,7 @@ if(isset($_POST['Add'])) {
 
 
     <div id="reviews">
-        <form action="contactus.php" method="post" role="form">
+        <form action="contactus.php" method="post">
             <fieldset>
                 <legend>Contact Us</legend>
                 <p>
@@ -78,7 +78,7 @@ if(isset($_POST['Add'])) {
                     <input name="email" id="email">
                 </p>
                 <p>
-                    <label for="comment">Comments</label>
+                    <label>Comments</label>
                     <textarea name ="comment" rows="4" cols="50"></textarea>
                 </p>
                 <p>
@@ -101,6 +101,5 @@ if(isset($_POST['Add'])) {
     <div id="footer">
         1041 McPhillips Street, (204)-123-1212, pandabubbletea@gmail.com
     </div> <!-- END div id="footer" -->
-</div> <!-- END div id="wrapper" -->
 </body>
 </html>

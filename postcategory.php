@@ -41,7 +41,7 @@ if(isset($_POST['Delete']))
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Panda Bubble Tea</title>

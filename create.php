@@ -21,12 +21,12 @@ This
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Panda Bubble Tea</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Mali|Shojumaru|Source+Sans+Pro" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
 <div id="wrapper">
@@ -63,7 +63,6 @@ This
           <p>
             <label for="category">Category</label>
             <select name="category" id="category">
-                <option value=""></option>
                 <?php while ($result = $statement->fetch()): ?>
                     <option value="<?php echo $result['categoryId']?>">
                         <?php echo $result['categoryName']?>

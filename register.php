@@ -53,7 +53,8 @@ $user_exists=false;
     }
 ?>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Register</title>
     <link rel="stylesheet" href="style.css" type="text/css">
@@ -71,17 +72,17 @@ $user_exists=false;
     <p>Username is already taken.</p>
     <?php endif ?>
 
-        <label for="username">Username</label>
+        <label>Username</label>
         <input type="text" name="username" class="form-control" placeholder="User Name" value="<?=$username?>" required autofocus>
 
-        <label for="email">Email</label>
-        <input type="email" name="email" class="form-control" placeholder="Email" value="<?=$email?>" required autofocus>
+        <label>Email</label>
+        <input type="email" name="email" class="form-control" placeholder="Email" value="<?=$email?>">
 
-        <label for="password1">Password</label>
-        <input type="password" name="password1" class="form-control" placeholder="Password" required autofocus>
+        <label>Password</label>
+        <input type="password" name="password1" class="form-control" placeholder="Password">
 
-        <label for="password2">Confirm password</label>
-        <input type="password" name="password2" class="form-control" placeholder="Password" required autofocus>
+        <label>Confirm password</label>
+        <input type="password" name="password2" class="form-control" placeholder="Password">
 
     <p> <input type="submit" name="register" value="Register">
         <input type="reset" name="reset" value="Reset">

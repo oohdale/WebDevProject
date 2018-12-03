@@ -10,16 +10,40 @@ This
         header('Location: index.php');
     }
 
-  $query = "SELECT * FROM Product ORDER BY productId";
-  // Returns a PDOStatement object.
-  $statement = $db->prepare($query);
-  // The query is now executed.
-  $statement->execute();
+$categoryId = filter_input(INPUT_POST, 'categoryId',FILTER_VALIDATE_INT);
+$categoryName = filter_input(INPUT_POST, 'categoryName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$categoryDesc = filter_input(INPUT_POST, 'categoryDesc',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+
+$productQuery = "SELECT * FROM Product ORDER BY productId";
+// Returns a PDOStatement object.
+$productStatement = $db->prepare($productQuery);
+// The query is now executed.
+$productStatement->execute();
+
+
+$query = "SELECT * FROM product";
+if($categoryId) :
+
+    $query .= " WHERE category = :categoryId";
+endif;
+
+$statement = $db->prepare($query);
+
+if($categoryId) {
+    $statement->bindParam(':categoryId', $categoryId);
+}
+
+$statement->execute();
+
+$queryCategory ="SELECT * FROM category ";
+$result = $db->prepare($queryCategory);
+$result -> execute();
 
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Panda Bubble Tea</title>
@@ -42,19 +66,31 @@ This
         <li><a href="logout.php">Log Out</a></li>
     </ul> <!-- END div id="menu" -->
 
+    <form name="sort" action="menu.php" method="post">
+        <select name="categoryId" id="categoryId">
+            <option value="">All Categories</option>
+            <?php while ($categoriesResult = $result->fetch()): ?>
+                <option value="<?= $categoriesResult['categoryId']?>">
+                    <?= $categoriesResult['categoryName']?>
+                </option>
+            <?php endwhile ?>
+        </select>
+            <input type="submit" name="categories" value="Submit">
+
+    </form>
 
 
-<fieldset>
+    <fieldset>
     <legend>Menu List</legend>
-        <?php while ($product = $statement->fetch()): ?>
+        <?php while ($product = $productStatement->fetch()): ?>
             <h2><a href="show.php?productId=<?= $product['productId']?>"><?= $product['productName'] ?></a> </h2>
             <?= substr($product['productDesc'], 0, 200)?>  <strong><a href="edit.php?productId=<?= $product['productId']?>">Edit</a></strong>
             <?php if($product['productImage']):?>
-                <p><img src="uploads\<?=$product['productImage']?> "alt="image"></p>
+                <p><img src="uploads/<?=$product['productImage']?>" alt="image"></p>
             <?php endif?>
             <p><b>Last Edited</b> <?= date('F d, Y, h:i A',strtotime($product['date']))?> </p>
         <?php endwhile ?>
-     </fieldset>
+</fieldset>
 
 
 </div>

@@ -15,7 +15,7 @@ $row=$statement->fetch();
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Panda Tea House</title>

@@ -33,7 +33,7 @@ if($postType == 'Delete')
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Panda Tea House</title>
@@ -66,8 +66,8 @@ if($postType == 'Delete')
 
 
 
-    <div id="reviews">
-        <form action="moderate.php" method="post" role="form">
+    <div id="comments">
+        <form action="moderate.php" method="post">
             <fieldset>
                 <legend>Comments</legend>
                 <?php while ($row = $commentStatement->fetch()): ?>
@@ -90,6 +90,5 @@ if($postType == 'Delete')
 <div id="footer">
     1041 McPhillips Street, (204)-123-1212, pandabubbletea@gmail.com
 </div> <!-- END div id="footer" -->
-</div> <!-- END div id="wrapper" -->
 </body>
 </html>

@@ -130,7 +130,7 @@ before it display on the blog.
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Panda Bubble Tea</title>

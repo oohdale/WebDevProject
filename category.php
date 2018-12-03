@@ -18,7 +18,7 @@ if(!isset($_SESSION['privilege']) || $_SESSION['privilege'] != 'Admin')
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Panda Bubble Tea</title>
@@ -58,7 +58,7 @@ if(!isset($_SESSION['privilege']) || $_SESSION['privilege'] != 'Admin')
             </fieldset>
             <fieldset>
                 <legend>Delete Category</legend>
-                <label for="category">Category</label>
+                <label>Category</label>
                 <select name="categoryId" id="categoryId">
 
                         <?php while ($result = $statement->fetch()): ?>

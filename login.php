@@ -8,7 +8,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Panda Bubble Tea</title>
@@ -32,8 +32,6 @@
         <li><a href="moderate.php">Comments</a></li>
         <li><a href="logout.php">Log Out</a></li>
     </ul> <!-- END div id="menu" -->
-
-</div>
 
 <?php if (isset($_SESSION['login_user'])) :?>
     <h2>You're still signed in <?=$_SESSION['login_user']?>!</h2>
