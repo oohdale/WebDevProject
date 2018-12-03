@@ -3,72 +3,35 @@ This
 -->
 
 <?php
-  require 'connect.php';
+require 'connect.php';
 
-    if(!isset($_SESSION['privilege']) || $_SESSION['privilege'] != 'Admin')
-    {
-        header('Location: index.php');
+if(!isset($_SESSION['privilege']) || $_SESSION['privilege'] != 'Admin')
+{
+    header('Location: index.php');
+}
+
+$productName = filter_input(INPUT_POST, 'productName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$date = filter_input(INPUT_POST, 'date');
+
+$productQuery = "SELECT * FROM Product";
+
+if(isset($_POST['submit']) && isset($_POST['sort'])) {
+    $sort = $_POST['sort'];
+
+    if($sort == 'sortAsc') {
+        $productQuery = "SELECT * FROM Product ORDER BY productName ASC";
     }
+    else if($sort == 'sortDesc') {
+        $productQuery = "SELECT * FROM Product ORDER BY productName DESC";
+    }
+    else if($sort == 'date') {
+        $productQuery = "SELECT * FROM Product ORDER BY date";
+    }
+}
 
-$productQuery = "SELECT * FROM Product ORDER BY productName";
 $productStatement = $db->prepare($productQuery);
 $productStatement->execute();
 
-
-$categoryId = filter_input(INPUT_POST, 'categoryId',FILTER_VALIDATE_INT);
-$categoryName = filter_input(INPUT_POST, 'categoryName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-$categoryDesc = filter_input(INPUT_POST, 'categoryDesc',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-//$query = "SELECT * FROM product";
-//if($categoryId) :
-//
-//    $query .= " WHERE category = :categoryId";
-//endif;
-//
-//$statement = $db->prepare($query);
-//
-//if($categoryId) {
-//    $statement->bindParam(':categoryId', $categoryId);
-//}
-//
-//$statement->execute();
-
-//$queryCategory ="SELECT * FROM category ";
-//$result = $db->prepare($queryCategory);
-//$result -> execute();
-
-//if(isset($_POST['submit']))
-//{
-//    $search = $_GET['search'];
-//    $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-//
-//    $search_results = "SELECT * FROM product WHERE productName LIKE :search";
-//    $statement=$db->prepare($search_results);
-//    $statement->bindValue(':search', '%'.$search.'%');
-//    $statement->execute();
-//    $row=$statement->fetch();
-//
-//}
-
-
-    if(isset($_POST['asc']) && !empty($_POST['asc'])) {
-        $productQuery = "SELECT * FROM Product ORDER BY productName";
-        $productStatement = $db->prepare($productQuery);
-        $productStatement->execute();
-    }
-
-    if(isset($_POST['desc']) && !empty($_POST['desc'])) {
-        $productQuery = "SELECT * FROM Product ORDER BY productName DESC";
-        $productStatement = $db->prepare($productQuery);
-        $productStatement->execute();
-    }
-
-
-    if(isset($_POST['datecreated']) && !empty($_POST['datecreated'])) {
-        $productQuery = "SELECT * FROM Product ORDER BY date";
-        $productStatement = $db->prepare($productQuery);
-        $productStatement->execute();
-    }
 
 ?>
 
@@ -96,27 +59,21 @@ $categoryDesc = filter_input(INPUT_POST, 'categoryDesc',FILTER_SANITIZE_FULL_SPE
         <li><a href="logout.php">Log Out</a></li>
     </ul> <!-- END div id="menu" -->
 
-<!--    <form name="sort" action="menu.php" method="post">-->
-<!--        <select name="categoryId" id="categoryId">-->
-<!--            <option value="">All Categories</option>-->
-<!--            --><?php //while ($categoriesResult = $result->fetch()): ?>
-<!--                <option value="--><?//= $categoriesResult['categoryId']?><!--">-->
-<!--                    --><?//= $categoriesResult['categoryName']?>
-<!--                </option>-->
-<!--            --><?php //endwhile ?>
-<!--        </select>-->
-<!--            <input type="submit" name="categories" value="Submit">-->
-<!--    </form>-->
+
 
 
     <fieldset>
-    <legend>Menu List</legend>
-<!--        <input type="text" name="search" />-->
-<!--        <input type="submit" value="Search" />-->
+        <legend>Menu List</legend>
 
-        <p>
-        <input type="submit" name="asc" value="Name ASC" /> <input type="submit" name="desc" value="Name Desc" /> <input type="submit" name="date" value="Date Created" />
-        </p>
+        <form action="#" method="post">
+            <select class="custom-select" id="sort" name="sort">
+                <option selected>Sort by</option>
+                <option value="sortAsc">Name(A-Z)</option>
+                <option value="sortDesc">Name (Z-A)</option>
+                <option value="date">Date</option>
+            </select>
+            <input type="submit" class="btn btn-primary" name='submit' value='Submit'>
+        </form>
 
         <?php while ($product = $productStatement->fetch()): ?>
             <h2><a href="show.php?productId=<?= $product['productId']?>"><?= $product['productName'] ?></a> </h2>
@@ -126,27 +83,14 @@ $categoryDesc = filter_input(INPUT_POST, 'categoryDesc',FILTER_SANITIZE_FULL_SPE
             <?php endif?>
             <p><b>Last Edited</b> <?= date('F d, Y, h:i A',strtotime($product['date']))?> </p>
         <?php endwhile ?>
-
-
     </fieldset>
 
 
 
-
-<!--    --><?php //if($row = $statement->fetch()): ?>
-<!--        --><?php //while ($row): ?>
-<!--            <p><--><?//=$row['productName']?><!--</p>-->
-<!--            --><?php
-//            $row = $statement->fetch();
-//        endwhile;
-//        ?>
-<!--    --><?php //endif?>
-
-
 </div>
 
-        <div id="footer">
-       1041 McPhillips Street, (204)-123-1212, pandabubbletea@gmail.com
-    </div> <!-- END div id="footer" -->
+<div id="footer">
+    1041 McPhillips Street, (204)-123-1212, pandabubbletea@gmail.com
+</div> <!-- END div id="footer" -->
 </body>
 </html>

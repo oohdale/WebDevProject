@@ -5,11 +5,10 @@ $search = $_GET['search'];
 $search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 $search_results = "SELECT * FROM product WHERE productName LIKE :search";
-$statement=$db->prepare($search_results);
-$statement->bindValue(':search', '%'.$search.'%');
-$statement->execute();
-$row=$statement->fetch();
-
+$searchStatement=$db->prepare($search_results);
+$searchStatement->bindValue(':search', '%'.$search.'%');
+$searchStatement->execute();
+$row=$searchStatement->fetch();
 
 ?>
 
@@ -50,7 +49,7 @@ $row=$statement->fetch();
             <?php while ($row): ?>
                 <p><a href="show.php?productId=<?=$row['productId']?>"><?=$row['productName']?></a></p>
             <?php
-                $row = $statement->fetch();
+                $row = $searchStatement->fetch();
                 endwhile;
                 ?>
         <?php else: ?>
