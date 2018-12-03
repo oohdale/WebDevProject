@@ -28,7 +28,8 @@
         <li><a href="create.php" class='active'>Product</a></li>
         <li><a href="category.php">Category</a></li>
         <li><a href="menu.php" >Menu</a></li>
-        <li><a href="moderate.php">Contact Us</a></li>
+        <li><a href="account.php">Accounts</a></li>
+        <li><a href="moderate.php">Comments</a></li>
         <li><a href="logout.php">Log Out</a></li>
     </ul> <!-- END div id="menu" -->
 

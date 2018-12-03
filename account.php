@@ -97,6 +97,7 @@ $userQuery->execute();
         <li><a href="menu.php" >Menu</a></li>
         <li><a href="index.php">Home</a></li>
         <li><a href="account.php">Account</a></li>
+        <li><a href="moderate.php">Comments</a></li>
         <li><a href="logout.php">Log Out</a></li>
     </ul> <!-- END div id="menu" -->
     <div id="newcategory">

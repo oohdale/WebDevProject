@@ -56,12 +56,12 @@ if($postType == 'Delete')
 
 
     <ul id="navbar">
-        <li><a href="index.php" class='active'>Home</a></li>
-        <li><a href="index.php#aboutus" >About Us</a></li>
-        <li><a href="index.php#menu" >Menu</a></li>
-        <li><a href="contactus.php">Contact Us</a></li>
+        <li><a href="create.php" class='active'>Product</a></li>
+        <li><a href="category.php">Category</a></li>
+        <li><a href="moderate.php">Comments</a></li>
+        <li><a href="account.php">Account</a></li>
         <li><a href="login.php" >Log In</a></li>
-        <li><a href="register.php" >Register</a></li>
+        <li><a href="logout.php">Log Out</a></li>
     </ul> <!-- END div id="menu" -->
 
 
