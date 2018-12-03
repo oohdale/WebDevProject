@@ -10,17 +10,14 @@ This
         header('Location: index.php');
     }
 
+$productQuery = "SELECT * FROM Product ORDER BY productName";
+$productStatement = $db->prepare($productQuery);
+$productStatement->execute();
+
+
 $categoryId = filter_input(INPUT_POST, 'categoryId',FILTER_VALIDATE_INT);
 $categoryName = filter_input(INPUT_POST, 'categoryName',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $categoryDesc = filter_input(INPUT_POST, 'categoryDesc',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-
-$productQuery = "SELECT * FROM Product ORDER BY productId";
-// Returns a PDOStatement object.
-$productStatement = $db->prepare($productQuery);
-// The query is now executed.
-$productStatement->execute();
-
 
 $query = "SELECT * FROM product";
 if($categoryId) :
@@ -35,6 +32,7 @@ if($categoryId) {
 }
 
 $statement->execute();
+
 
 $queryCategory ="SELECT * FROM category ";
 $result = $db->prepare($queryCategory);
@@ -82,7 +80,7 @@ $result -> execute();
 
     <fieldset>
     <legend>Menu List</legend>
-        <?php while ($product = $productStatement->fetch()): ?>
+        <?php while ($product = $statement->fetch()): ?>
             <h2><a href="show.php?productId=<?= $product['productId']?>"><?= $product['productName'] ?></a> </h2>
             <?= substr($product['productDesc'], 0, 200)?>  <strong><a href="edit.php?productId=<?= $product['productId']?>">Edit</a></strong>
             <?php if($product['productImage']):?>
